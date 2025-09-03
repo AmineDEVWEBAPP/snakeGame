@@ -10,7 +10,7 @@ class AppTheme {
   late SharedPreferences shp;
   static late ThemeMode mode;
   static late ThemeData theme;
-  
+
   static init() async {
     logger('init Theme');
     _instance.shp = await SharedPreferences.getInstance();
@@ -46,7 +46,9 @@ class AppTheme {
   final ThemeData _lightTheme = ThemeData();
   final ThemeData _darkTheme = ThemeData(
     scaffoldBackgroundColor: const Color.fromARGB(255, 22, 22, 22),
-    cardColor: const Color.fromARGB(255, 38, 38, 38),
+    focusColor: const Color.fromARGB(255, 38, 38, 38),
+    cardColor: Colors.white38,
+    secondaryHeaderColor: Colors.yellow,
     textTheme: TextTheme(
       bodyMedium: TextStyle(color: Colors.white),
       bodyLarge: TextStyle(color: Colors.white),

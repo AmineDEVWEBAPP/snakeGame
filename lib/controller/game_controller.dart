@@ -5,22 +5,25 @@ import '../core/const/enums.dart';
 class GameController extends GetxController {
   int _deriction = 1;
   SnakeDeri _snakeDeri = SnakeDeri.left;
-  bool _isStarted = false;
+  bool isStarting = false;
+  bool isStarted = false;
   List<int> snakePixels = [100];
   final List<SnakeDeri> _footPrint = [];
   int ballLocation = 50;
   int points = 0;
+  int level = 1;
 
   void start() {
-    if (!_isStarted) {
-      _isStarted = true;
+    if (!isStarting) {
+      !isStarted ? isStarted = true : null;
+      isStarting = true;
       _snakeDeri = SnakeDeri.right;
       _updateDeri();
     }
   }
 
   void stop() {
-    _isStarted = false;
+    isStarting = false;
   }
 
   void toTop() {
@@ -40,7 +43,7 @@ class GameController extends GetxController {
   }
 
   Future<void> _updateDeri() async {
-    while (_isStarted) {
+    while (isStarting) {
       _loggerPrints();
       for (int i = 0; i < snakePixels.length; i++) {
         _moveSnake(i == 0 ? _snakeDeri : _footPrint.reversed.toList()[i], i);
@@ -100,7 +103,7 @@ class GameController extends GetxController {
     if (snakePixels[0] == ballLocation) {
       _changeBallLocation();
       points++;
-      update(['points']);
+      update(['info']);
       int addNum = snakePixels.last - _deriction;
       snakePixels.add(addNum);
     }

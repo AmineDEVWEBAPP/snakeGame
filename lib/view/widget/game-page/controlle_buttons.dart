@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../controller/game_controller.dart';
+import '../../../core/config/theme.dart';
 
 // ignore: must_be_immutable
 class ControlleButtons extends StatelessWidget {
   ControlleButtons({super.key});
   final GameController _gContr = Get.find<GameController>();
+  final ThemeData _appTheme = AppTheme.theme;
   double bSize = (Get.width * 0.45) / 3;
   @override
   Widget build(BuildContext context) {
@@ -32,10 +34,13 @@ class ControlleButtons extends StatelessWidget {
       width: bSize,
       height: bSize,
       decoration: BoxDecoration(
-        color: Colors.white38,
+        color: _appTheme.cardColor,
         borderRadius: BorderRadius.circular(10),
       ),
-      child: Icon(Icons.arrow_back_ios_new),
+      child: Icon(
+        Icons.arrow_back_ios_new,
+        color: _appTheme.scaffoldBackgroundColor,
+      ),
     ),
   );
   Widget _right() => InkWell(
@@ -44,10 +49,13 @@ class ControlleButtons extends StatelessWidget {
       width: bSize,
       height: bSize,
       decoration: BoxDecoration(
-        color: Colors.white38,
+        color: _appTheme.cardColor,
         borderRadius: BorderRadius.circular(10),
       ),
-      child: Icon(Icons.arrow_forward_ios),
+      child: Icon(
+        Icons.arrow_forward_ios,
+        color: _appTheme.scaffoldBackgroundColor,
+      ),
     ),
   );
   Widget _top() => InkWell(
@@ -56,10 +64,16 @@ class ControlleButtons extends StatelessWidget {
       width: bSize,
       height: bSize,
       decoration: BoxDecoration(
-        color: Colors.white38,
+        color: _appTheme.cardColor,
         borderRadius: BorderRadius.circular(10),
       ),
-      child: RotatedBox(quarterTurns: 1, child: Icon(Icons.arrow_back_ios_new)),
+      child: RotatedBox(
+        quarterTurns: 1,
+        child: Icon(
+          Icons.arrow_back_ios_new,
+          color: _appTheme.scaffoldBackgroundColor,
+        ),
+      ),
     ),
   );
   Widget _bottom() => InkWell(
@@ -68,12 +82,15 @@ class ControlleButtons extends StatelessWidget {
       width: bSize,
       height: bSize,
       decoration: BoxDecoration(
-        color: Colors.white38,
+        color: _appTheme.cardColor,
         borderRadius: BorderRadius.circular(10),
       ),
       child: RotatedBox(
         quarterTurns: -1,
-        child: Icon(Icons.arrow_back_ios_new),
+        child: Icon(
+          Icons.arrow_back_ios_new,
+          color: _appTheme.scaffoldBackgroundColor,
+        ),
       ),
     ),
   );

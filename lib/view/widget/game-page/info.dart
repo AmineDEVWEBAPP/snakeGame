@@ -3,17 +3,18 @@ import 'package:get/get.dart';
 
 import '../../../controller/game_controller.dart';
 
-class Points extends StatelessWidget {
-  const Points({super.key});
+class Info extends StatelessWidget {
+  const Info({super.key, required this.keyw, required this.value});
+  final String keyw;
+  final String value;
 
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: Alignment.centerLeft,
       child: GetBuilder<GameController>(
-        id: 'points',
+        id: 'info',
         builder: (controller) => Text(
-          'P : ${controller.points}',
+          '$keyw : $value',
           style: TextStyle(color: Colors.yellow, fontSize: 17),
         ),
       ),

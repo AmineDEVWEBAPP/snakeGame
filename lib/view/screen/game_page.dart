@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../controller/game_controller.dart';
+import '../../core/config/theme.dart';
 import '../widget/game-page/controlle_buttons.dart';
 import '../widget/game-page/game_card.dart';
-import '../widget/game-page/points.dart';
+import '../widget/game-page/info.dart';
 
 class GamePage extends StatelessWidget {
   GamePage({super.key});
-  final GameController _gContr = Get.find<GameController>();
+  final ThemeData _appTheme = AppTheme.theme;
+  final GameController _gCont = Get.find<GameController>();
 
   @override
   Widget build(BuildContext context) {
@@ -19,23 +21,38 @@ class GamePage extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(height: Get.height * 0.1),
-            Points(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Info(keyw: 'P', value: _gCont.points.toString()),
+                Info(keyw: 'LEVEL', value: _gCont.level.toString()),
+              ],
+            ),
             GameCard(),
             SizedBox(height: 40),
             ControlleButtons(),
             SizedBox(height: 50),
-            ElevatedButton(
-              onPressed: () {
-                _gContr.start();
-              },
-              child: Text('Start'),
-            ),
-            SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () {
-                _gContr.stop();
-              },
-              child: Text('Stop'),
+            GetBuilder<GameController>(
+              id: 'startButton',
+              builder: (controller) => ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: WidgetStatePropertyAll(_appTheme.cardColor),
+                ),
+                onPressed: () {
+                  controller.isStarting
+                      ? controller.stop()
+                      : controller.start();
+                  controller.update(['startButton']);
+                },
+                child: Text(
+                  !controller.isStarted
+                      ? 'Start'
+                      : controller.isStarting
+                      ? 'Pause'
+                      : 'Resume',
+                  style: TextStyle(color: _appTheme.secondaryHeaderColor),
+                ),
+              ),
             ),
           ],
         ),

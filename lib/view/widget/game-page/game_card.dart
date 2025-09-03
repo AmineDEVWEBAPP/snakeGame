@@ -18,7 +18,7 @@ class GameCard extends StatelessWidget {
           color: const Color.fromARGB(255, 86, 255, 92),
           width: 2,
         ),
-        color: _theme.cardColor,
+        color: _theme.focusColor,
       ),
       child: GetBuilder<GameController>(
         id: 'snakeLocation',
