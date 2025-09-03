@@ -47,6 +47,7 @@ class GameController extends GetxController {
       }
       _addHieght(_deriction);
       update(['snakeLocation']);
+      _loss();
       await Future.delayed(const Duration(milliseconds: 600));
     }
   }
@@ -102,6 +103,15 @@ class GameController extends GetxController {
       update(['points']);
       int addNum = snakePixels.last - _deriction;
       snakePixels.add(addNum);
+    }
+  }
+
+  void _loss() {
+    List<int> pixels = snakePixels
+        .skipWhile((item) => item == snakePixels[0])
+        .toList();
+    if (pixels.contains(snakePixels[0])) {
+      stop();
     }
   }
 
