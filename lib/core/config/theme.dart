@@ -8,6 +8,9 @@ class AppTheme {
   AppTheme._();
   static final AppTheme _instance = AppTheme._();
   late SharedPreferences shp;
+  static late ThemeMode mode;
+  static late ThemeData theme;
+  
   static init() async {
     logger('init Theme');
     _instance.shp = await SharedPreferences.getInstance();
@@ -40,8 +43,6 @@ class AppTheme {
         : AppTheme.theme = _lightTheme;
   }
 
-  static late ThemeMode mode;
-  static late ThemeData theme;
   final ThemeData _lightTheme = ThemeData();
   final ThemeData _darkTheme = ThemeData(
     scaffoldBackgroundColor: const Color.fromARGB(255, 22, 22, 22),

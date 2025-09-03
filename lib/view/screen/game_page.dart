@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../core/config/theme.dart';
+import '../../controller/game_controller.dart';
 import '../widget/game-page/controlle_buttons.dart';
+import '../widget/game-page/game_card.dart';
 import '../widget/game-page/points.dart';
 
 class GamePage extends StatelessWidget {
   GamePage({super.key});
-  final ThemeData _theme = AppTheme.theme;
+  final GameController _gContr = Get.find<GameController>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,18 +20,23 @@ class GamePage extends StatelessWidget {
           children: [
             SizedBox(height: Get.height * 0.1),
             Points(),
-            Container(
-              height: Get.height * 0.45,
-              decoration: BoxDecoration(
-                border: BoxBorder.all(
-                  color: const Color.fromARGB(255, 86, 255, 92),
-                  width: 2,
-                ),
-                color: _theme.cardColor,
-              ),
-            ),
+            GameCard(),
             SizedBox(height: 40),
             ControlleButtons(),
+            SizedBox(height: 50),
+            ElevatedButton(
+              onPressed: () {
+                _gContr.start();
+              },
+              child: Text('Start'),
+            ),
+            SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () {
+                _gContr.stop();
+              },
+              child: Text('Stop'),
+            ),
           ],
         ),
       ),

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../controller/game_controller.dart';
+
 // ignore: must_be_immutable
 class ControlleButtons extends StatelessWidget {
-  ControlleButtons({super.key, this.left, this.right, this.top, this.bottom});
-  final void Function()? left;
-  final void Function()? right;
-  final void Function()? top;
-  final void Function()? bottom;
+  ControlleButtons({super.key});
+  final GameController _gContr = Get.find<GameController>();
   double bSize = (Get.width * 0.45) / 3;
   @override
   Widget build(BuildContext context) {
@@ -28,7 +27,7 @@ class ControlleButtons extends StatelessWidget {
   }
 
   Widget _left() => InkWell(
-    onTap: left,
+    onTap: _gContr.toLeft,
     child: Container(
       width: bSize,
       height: bSize,
@@ -40,7 +39,7 @@ class ControlleButtons extends StatelessWidget {
     ),
   );
   Widget _right() => InkWell(
-    onTap: right,
+    onTap: _gContr.toRight,
     child: Container(
       width: bSize,
       height: bSize,
@@ -52,7 +51,7 @@ class ControlleButtons extends StatelessWidget {
     ),
   );
   Widget _top() => InkWell(
-    onTap: top,
+    onTap: _gContr.toTop,
     child: Container(
       width: bSize,
       height: bSize,
@@ -64,7 +63,7 @@ class ControlleButtons extends StatelessWidget {
     ),
   );
   Widget _bottom() => InkWell(
-    onTap: bottom,
+    onTap: _gContr.toBottom,
     child: Container(
       width: bSize,
       height: bSize,
