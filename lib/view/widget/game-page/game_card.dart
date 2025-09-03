@@ -40,7 +40,11 @@ class GameCard extends StatelessWidget {
     builder: (controller) => Container(
       decoration: BoxDecoration(
         border: Border.all(color: Colors.white),
-        color: controller.snakePixels.contains(index) ? Colors.orange : null,
+        color: controller.snakePixels.contains(index)
+            ? Colors.orange
+            : controller.ballLocation == index
+            ? Colors.blue
+            : null,
       ),
       child: Text(index.toString(), style: TextStyle(fontSize: 10)),
     ),
