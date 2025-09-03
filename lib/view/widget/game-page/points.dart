@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../../controller/game_controller.dart';
 
 class Points extends StatelessWidget {
   const Points({super.key});
@@ -7,9 +10,12 @@ class Points extends StatelessWidget {
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.centerLeft,
-      child: Text(
-        'P : 19',
-        style: TextStyle(color: Colors.yellow, fontSize: 17),
+      child: GetBuilder<GameController>(
+        id: 'points',
+        builder: (controller) => Text(
+          'P : ${controller.points}',
+          style: TextStyle(color: Colors.yellow, fontSize: 17),
+        ),
       ),
     );
   }

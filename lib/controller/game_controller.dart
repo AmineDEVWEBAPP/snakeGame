@@ -9,6 +9,7 @@ class GameController extends GetxController {
   List<int> snakePixels = [100];
   final List<SnakeDeri> _footPrint = [];
   int ballLocation = 50;
+  int points = 0;
 
   void start() {
     if (!_isStarted) {
@@ -97,6 +98,8 @@ class GameController extends GetxController {
   void _addHieght(int pixel) {
     if (snakePixels[0] == ballLocation) {
       _changeBallLocation();
+      points++;
+      update(['points']);
       int addNum = snakePixels.last - _deriction;
       snakePixels.add(addNum);
     }
