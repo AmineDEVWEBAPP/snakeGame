@@ -20,14 +20,17 @@ class GameCard extends StatelessWidget {
         ),
         color: _theme.cardColor,
       ),
-      child: GridView.builder(
-        padding: EdgeInsets.all(0),
-        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 25,
+      child: GetBuilder<GameController>(
+        id: 'snakeLocation',
+        builder: (controller) => GridView.builder(
+          padding: EdgeInsets.all(0),
+          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+            maxCrossAxisExtent: 25,
+          ),
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: 225,
+          itemBuilder: (context, i) => _pixel(i),
         ),
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: 225,
-        itemBuilder: (context, i) => _pixel(i),
       ),
     );
   }
@@ -37,7 +40,7 @@ class GameCard extends StatelessWidget {
     builder: (controller) => Container(
       decoration: BoxDecoration(
         border: Border.all(color: Colors.white),
-        color: controller.snakeLocation == index ? Colors.orange : null,
+        color: controller.snakePixels.contains(index) ? Colors.orange : null,
       ),
       child: Text(index.toString(), style: TextStyle(fontSize: 10)),
     ),

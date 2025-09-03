@@ -3,10 +3,11 @@ import 'package:get/get.dart';
 import '../core/const/enums.dart';
 
 class GameController extends GetxController {
-  int snakeLocation = 84;
   int _deriction = 1;
   SnakeDeri _snakeDeri = SnakeDeri.left;
   bool _isStarted = false;
+  List<int> snakePixels = [84];
+  final List<SnakeDeri> _footPrint = [];
 
   void start() {
     if (!_isStarted) {
@@ -38,49 +39,71 @@ class GameController extends GetxController {
 
   Future<void> _updateDeri() async {
     while (_isStarted) {
-      switch (_snakeDeri) {
-        case SnakeDeri.top:
-          _deriction = -15;
-          break;
-        case SnakeDeri.bottom:
-          _deriction = 15;
-          break;
-        case SnakeDeri.left:
-          _deriction = -1;
-          break;
-        case SnakeDeri.right:
-          _deriction = 1;
+      _loggerPrints();
+      for (int i = 0; i < snakePixels.length; i++) {
+        _moveSnake(i == 0 ? _snakeDeri : _footPrint.reversed.toList()[i], i);
       }
-      _outSide();
-      snakeLocation += _deriction;
+      _addHieght(_deriction);
       update(['snakeLocation']);
       await Future.delayed(const Duration(milliseconds: 600));
     }
   }
 
-  void _outSide() {
-    switch (_snakeDeri) {
+  void _moveSnake(SnakeDeri snakeDeri, int pixelIndex) {
+    switch (snakeDeri) {
       case SnakeDeri.top:
-        if (snakeLocation < 15) {
-          snakeLocation += 225;
+        _deriction = -15;
+        break;
+      case SnakeDeri.bottom:
+        _deriction = 15;
+        break;
+      case SnakeDeri.left:
+        _deriction = -1;
+        break;
+      case SnakeDeri.right:
+        _deriction = 1;
+    }
+    _outSide(_snakeDeri, pixelIndex);
+    snakePixels[pixelIndex] += _deriction;
+  }
+
+  void _outSide(SnakeDeri snakeDeri, int pixelIndex) {
+    switch (snakeDeri) {
+      case SnakeDeri.top:
+        if (snakePixels[pixelIndex] < 15) {
+          snakePixels[pixelIndex] += 225;
         }
         break;
       case SnakeDeri.bottom:
-        if (snakeLocation > 209) {
-          snakeLocation -= 225;
+        if (snakePixels[pixelIndex] > 209) {
+          snakePixels[pixelIndex] -= 225;
         }
         break;
       case SnakeDeri.left:
         List<int> leftNums = List.generate(15, (i) => 15 * i);
-        if (leftNums.contains(snakeLocation)) {
-          snakeLocation += 15;
+        if (leftNums.contains(snakePixels[pixelIndex])) {
+          snakePixels[pixelIndex] += 15;
         }
         break;
       case SnakeDeri.right:
         List<int> rightNums = List.generate(15, (i) => (15 * i) + 14);
-        if (rightNums.contains(snakeLocation)) {
-          snakeLocation -= 15;
+        if (rightNums.contains(snakePixels[pixelIndex])) {
+          snakePixels[pixelIndex] -= 15;
         }
+    }
+  }
+
+  void _addHieght(int pixel) {
+    if (snakePixels[0] == 53) {
+      int addNum = snakePixels.last - _deriction;
+      snakePixels.add(addNum);
+    }
+  }
+
+  void _loggerPrints() {
+    _footPrint.add(_snakeDeri);
+    if (_footPrint.length > snakePixels.length) {
+      _footPrint.removeAt(0);
     }
   }
 }
