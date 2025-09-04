@@ -5,8 +5,8 @@ import '../../controller/drawer_controller.dart';
 import '../../controller/game_controller.dart';
 import '../../core/config/theme.dart';
 import '../widget/game-page/controlle_buttons.dart';
-import '../widget/game-page/drawer.dart';
-import '../widget/game-page/drawer_icon.dart';
+import 'drawer.dart';
+import '../widget/drawer/icon.dart';
 import '../widget/game-page/game_card.dart';
 import '../widget/game-page/info.dart';
 

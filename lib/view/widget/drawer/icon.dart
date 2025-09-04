@@ -18,7 +18,7 @@ class DrawerIcon extends StatelessWidget {
         child: GetBuilder<GameDrawerController>(
           id: 'drawerIcon',
           builder: (controller) => AnimatedRotation(
-            turns: controller.turns,
+            turns: controller.iconTurns,
             duration: const Duration(milliseconds: 400),
             child: Icon(Icons.settings),
           ),

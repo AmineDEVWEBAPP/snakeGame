@@ -50,11 +50,7 @@ class AppTheme {
     cardColor: Colors.white38,
     secondaryHeaderColor: Colors.yellow,
     hintColor: const Color.fromARGB(255, 97, 97, 97),
-    textTheme: TextTheme(
-      bodyMedium: TextStyle(color: Colors.yellow),
-      bodyLarge: TextStyle(color: Colors.yellow),
-      bodySmall: TextStyle(color: Colors.yellow),
-    ),
+    textTheme: TextTheme(bodyMedium: TextStyle(color: Colors.yellow)),
     iconTheme: IconThemeData(color: Colors.yellow),
   );
 }

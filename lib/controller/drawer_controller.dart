@@ -4,10 +4,10 @@ import 'game_controller.dart';
 
 class GameDrawerController extends GetxController {
   final GameController _gContr = Get.find<GameController>();
-  double turns = 0;
+  double iconTurns = 0;
   void drawerAnimation() {
     _gContr.stop();
-    turns == 0 ? turns = 0.3 : turns = 0;
+    iconTurns == 0 ? iconTurns = 0.3 : iconTurns = 0;
     update(['drawerIcon']);
   }
 }
