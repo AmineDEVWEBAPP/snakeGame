@@ -14,10 +14,7 @@ class GameCard extends StatelessWidget {
       height: Get.width * 0.9,
       width: Get.width * 0.9,
       decoration: BoxDecoration(
-        border: BoxBorder.all(
-          color: const Color.fromARGB(255, 86, 255, 92),
-          width: 2,
-        ),
+        border: BoxBorder.all(color: _theme.secondaryHeaderColor, width: 2),
         color: _theme.focusColor,
       ),
       child: GetBuilder<GameController>(
@@ -39,14 +36,14 @@ class GameCard extends StatelessWidget {
     id: 'snakeLocation',
     builder: (controller) => Container(
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.white),
+        // border: Border.all(color: Colors.white),
         color: controller.snakePixels.contains(index)
             ? Colors.orange
             : controller.ballLocation == index
             ? Colors.blue
             : null,
       ),
-      child: Text(index.toString(), style: TextStyle(fontSize: 10)),
+      // child: Text(index.toString(), style: TextStyle(fontSize: 10)),
     ),
   );
 }

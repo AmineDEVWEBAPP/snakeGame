@@ -17,13 +17,14 @@ class GameController extends GetxController {
     if (!isStarting) {
       !isStarted ? isStarted = true : null;
       isStarting = true;
-      _snakeDeri = SnakeDeri.right;
+      update(['startButton']);
       _updateDeri();
     }
   }
 
   void stop() {
     isStarting = false;
+    update(['startButton']);
   }
 
   void toTop() {
@@ -120,6 +121,9 @@ class GameController extends GetxController {
 
   void _changeBallLocation() {
     List<int> allLocations = List.generate(224, (i) => i);
+    for (var item in snakePixels) {
+      allLocations.remove(item);
+    }
     allLocations.shuffle();
     ballLocation = allLocations[0];
     update(['snakeLocation']);
