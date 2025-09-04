@@ -16,7 +16,7 @@ class _GameDrawerState extends State<GameDrawer> {
   final ThemeData _theme = AppTheme.theme;
   bool _openLevels = false;
   bool _openModes = false;
-  double _dialogHeight = Get.height * 0.25;
+  double _dialogHeight = Get.height * 0.185;
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +40,9 @@ class _GameDrawerState extends State<GameDrawer> {
               builder: (controller) =>
                   _button(Icons.leaderboard, 'level ${controller.level}', () {
                     _openLevels = !_openLevels;
+                    _openLevels
+                        ? _dialogHeight = Get.height * 0.25
+                        : _dialogHeight = Get.height * 0.185;
                     setState(() {});
                   }),
             ),
@@ -53,6 +56,7 @@ class _GameDrawerState extends State<GameDrawer> {
               ],
               onTap: (v) {
                 _openLevels = false;
+                _dialogHeight = Get.height * 0.25;
                 setState(() {});
               },
             ),
@@ -68,8 +72,8 @@ class _GameDrawerState extends State<GameDrawer> {
             _button(Icons.contrast, 'them Mode', () {
               _openModes = !_openModes;
               _openModes
-                  ? _dialogHeight = Get.height * 0.315
-                  : _dialogHeight = Get.height * 0.25;
+                  ? _dialogHeight = Get.height * 0.31
+                  : _dialogHeight = Get.height * 0.185;
               setState(() {});
             }),
             ExpandedDialog(
@@ -82,17 +86,10 @@ class _GameDrawerState extends State<GameDrawer> {
               ],
               onTap: (v) {
                 _openModes = false;
-                _dialogHeight = Get.height * 0.25;
+                _dialogHeight = Get.height * 0.185;
                 setState(() {});
               },
             ),
-            _button(Icons.info, 'about dev', () {
-              Get.defaultDialog(
-                title: 'About',
-                backgroundColor: _theme.hintColor,
-                middleText: 'fkajlkfjlajlfkj kjafjla jflkjslkajf',
-              );
-            }),
           ],
         ),
       ),

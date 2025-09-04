@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 
 import '../core/const/enums.dart';
+import '../core/utils/methodes.dart';
 
 class GameController extends GetxController {
   int _deriction = 1;
@@ -15,6 +16,7 @@ class GameController extends GetxController {
 
   void start() {
     if (!isStarting) {
+      logger('Start game');
       !isStarted ? isStarted = true : null;
       isStarting = true;
       update(['startButton']);
@@ -23,7 +25,10 @@ class GameController extends GetxController {
   }
 
   void stop() {
-    isStarting = false;
+    if (isStarting) {
+      logger('Stop game');
+      isStarting = false;
+    }
     update(['startButton']);
   }
 
