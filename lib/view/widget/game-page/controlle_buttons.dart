@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../controller/snake_controller.dart';
-import '../../../core/config/theme.dart';
+import '../../../controller/theme_controller.dart';
 
 // ignore: must_be_immutable
 class ControlleButtons extends StatelessWidget {
   ControlleButtons({super.key});
   final SnakeController _sContr = Get.find<SnakeController>();
-  final ThemeData _appTheme = AppTheme.theme;
+  final ThemeData _appTheme = ThemeController.theme;
   double bSize = (Get.width * 0.45) / 3;
   @override
   Widget build(BuildContext context) {

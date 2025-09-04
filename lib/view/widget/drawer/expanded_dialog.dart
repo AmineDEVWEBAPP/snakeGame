@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/config/theme.dart';
+import '../../../controller/theme_controller.dart';
 
 class ExpandedDialog extends StatefulWidget {
   const ExpandedDialog({
@@ -20,7 +20,7 @@ class ExpandedDialog extends StatefulWidget {
 }
 
 class _ExpandedDialogState extends State<ExpandedDialog> {
-  final ThemeData _theme = AppTheme.theme;
+  final ThemeData _theme = ThemeController.theme;
 
   dynamic _groupValue;
 

@@ -3,11 +3,11 @@ import 'package:get/get.dart';
 
 import '../../../controller/game_controller.dart';
 import '../../../controller/snake_controller.dart';
-import '../../../core/config/theme.dart';
+import '../../../controller/theme_controller.dart';
 
 class GameCard extends StatelessWidget {
   GameCard({super.key});
-  final ThemeData _theme = AppTheme.theme;
+  final ThemeData _theme = ThemeController.theme;
 
   @override
   Widget build(BuildContext context) {

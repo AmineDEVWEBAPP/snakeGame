@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 
 import 'controller/route_controller.dart';
-import 'core/config/theme.dart';
+import 'controller/theme_controller.dart';
 import 'core/utils/methodes.dart';
 
 void main() async {
@@ -17,8 +17,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => GetMaterialApp(
     debugShowCheckedModeBanner: false,
-    theme: AppTheme.theme,
-    themeMode: AppTheme.mode,
+    theme: ThemeController.theme,
+    themeMode: ThemeController.mode,
     initialRoute: RouteController.gamePage.name,
     getPages: [RouteController.gamePage],
   );

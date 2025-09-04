@@ -1,4 +1,4 @@
-import '../config/theme.dart';
+import '../../controller/theme_controller.dart';
 
 void logger(String? message) {
   // ignore: avoid_print
@@ -6,5 +6,5 @@ void logger(String? message) {
 }
 
 Future<void> initServices() async {
-  await AppTheme.init();
+  await ThemeController.init();
 }

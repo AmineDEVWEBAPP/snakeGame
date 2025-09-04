@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../controller/game_controller.dart';
-import '../../core/config/theme.dart';
+import '../../controller/theme_controller.dart';
 import '../widget/drawer/expanded_dialog.dart';
 
 class GameDrawer extends StatefulWidget {
@@ -13,7 +13,7 @@ class GameDrawer extends StatefulWidget {
 }
 
 class _GameDrawerState extends State<GameDrawer> {
-  final ThemeData _theme = AppTheme.theme;
+  final ThemeData _theme = ThemeController.theme;
   bool _openLevels = false;
   bool _openModes = false;
   double _dialogHeight = Get.height * 0.185;

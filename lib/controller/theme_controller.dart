@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../utils/methodes.dart';
+import '../core/utils/methodes.dart';
 
-class AppTheme {
-  AppTheme._();
-  static final AppTheme _instance = AppTheme._();
+class ThemeController {
+  ThemeController._();
+  static final ThemeController _instance = ThemeController._();
   late SharedPreferences shp;
   static late ThemeMode mode;
   static late ThemeData theme;
@@ -19,7 +19,7 @@ class AppTheme {
 
   static void changeMode(ThemeMode mode) {
     logger('change themeMode to ${mode.name}');
-    AppTheme.mode = mode;
+    ThemeController.mode = mode;
     _instance.shp.setString('mode', mode.name);
     Get.appUpdate();
   }
@@ -28,19 +28,19 @@ class AppTheme {
     String? modeName = _instance.shp.getString('mode');
     switch (modeName) {
       case 'dark':
-        AppTheme.mode = ThemeMode.dark;
+        ThemeController.mode = ThemeMode.dark;
       case 'light':
-        AppTheme.mode = ThemeMode.light;
+        ThemeController.mode = ThemeMode.light;
       default:
-        AppTheme.mode = ThemeMode.dark;
+        ThemeController.mode = ThemeMode.dark;
     }
   }
 
   Future<void> getTheme() async {
     await _instance.getMode();
-    AppTheme.mode == ThemeMode.dark
-        ? AppTheme.theme = _darkTheme
-        : AppTheme.theme = _lightTheme;
+    ThemeController.mode == ThemeMode.dark
+        ? ThemeController.theme = _darkTheme
+        : ThemeController.theme = _lightTheme;
   }
 
   final ThemeData _lightTheme = ThemeData();

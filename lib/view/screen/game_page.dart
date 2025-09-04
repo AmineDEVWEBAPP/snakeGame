@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import '../../controller/drawer_controller.dart';
 import '../../controller/game_controller.dart';
-import '../../core/config/theme.dart';
+import '../../controller/theme_controller.dart';
 import '../widget/game-page/controlle_buttons.dart';
 import 'drawer.dart';
 import '../widget/drawer/icon.dart';
@@ -12,7 +12,7 @@ import '../widget/game-page/info.dart';
 
 class GamePage extends StatelessWidget {
   GamePage({super.key});
-  final ThemeData _appTheme = AppTheme.theme;
+  final ThemeData _appTheme = ThemeController.theme;
   final GlobalKey<ScaffoldState> _scaffoldState = GlobalKey();
   final GameDrawerController _gdContr = Get.find<GameDrawerController>();
 
