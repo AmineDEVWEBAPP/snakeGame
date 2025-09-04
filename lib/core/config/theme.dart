@@ -49,6 +49,7 @@ class AppTheme {
     focusColor: const Color.fromARGB(255, 38, 38, 38),
     cardColor: Colors.white38,
     secondaryHeaderColor: Colors.yellow,
+    hintColor: const Color.fromARGB(255, 97, 97, 97),
     textTheme: TextTheme(
       bodyMedium: TextStyle(color: Colors.yellow),
       bodyLarge: TextStyle(color: Colors.yellow),
