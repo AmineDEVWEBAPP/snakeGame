@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import '../../controller/game_controller.dart';
 import '../../controller/theme_controller.dart';
-import '../widget/drawer/expanded_dialog.dart';
+import '../widget/drawer/button.dart';
 
 class GameDrawer extends StatefulWidget {
   const GameDrawer({super.key});
@@ -38,31 +38,32 @@ class _GameDrawerState extends State<GameDrawer> {
           children: [
             GetBuilder<GameController>(
               id: 'info',
-              builder: (controller) =>
-                  _button(Icons.leaderboard, 'level ${controller.level}', () {
-                    _openLevels = !_openLevels;
-                    _openLevels
-                        ? _dialogHeight = Get.height * 0.25
-                        : _dialogHeight = Get.height * 0.185;
-                    setState(() {});
-                  }),
+              builder: (controller) => GameDrawerButton(
+                icon: Icons.leaderboard,
+                title: 'level ${controller.level}',
+                onTap: () {
+                  _openLevels = !_openLevels;
+                  _openLevels
+                      ? _dialogHeight = Get.height * 0.25
+                      : _dialogHeight = Get.height * 0.185;
+                  setState(() {});
+                },
+                isOpen: _openLevels,
+                onChoice: (level) async {
+                  _openLevels = false;
+                  _dialogHeight = Get.height * 0.185;
+                  setState(() {});
+                  await _gContr.changeLevel(level);
+                },
+                data: [
+                  {'Level 1': 1},
+                  {'Level 2': 2},
+                  {'Level 3': 3},
+                ],
+                groupValue: controller.level,
+              ),
             ),
-            ExpandedDialog(
-              offset: Offset(0, -Get.height * 0.025),
-              isOpen: _openLevels,
-              groupValue: _gContr.level,
-              data: [
-                {'Level 1': 1},
-                {'Level 2': 2},
-                {'Level 3': 3},
-              ],
-              onTap: (level) async {
-                _openLevels = false;
-                _dialogHeight = Get.height * 0.185;
-                setState(() {});
-                await _gContr.changeLevel(level);
-              },
-            ),
+
             _button(Icons.score, 'top score', () {
               Get.defaultDialog(
                 title: 'Top score',
@@ -72,27 +73,28 @@ class _GameDrawerState extends State<GameDrawer> {
                 middleTextStyle: TextStyle(fontSize: 30),
               );
             }),
-            _button(Icons.contrast, 'them Mode', () {
-              _openModes = !_openModes;
-              _openModes
-                  ? _dialogHeight = Get.height * 0.31
-                  : _dialogHeight = Get.height * 0.185;
-              setState(() {});
-            }),
-            ExpandedDialog(
-              offset: Offset(0, -Get.height * 0.025),
+            GameDrawerButton(
+              icon: Icons.contrast,
+              title: 'theme mode',
+              onTap: () {
+                _openModes = !_openModes;
+                _openModes
+                    ? _dialogHeight = Get.height * 0.31
+                    : _dialogHeight = Get.height * 0.185;
+                setState(() {});
+              },
               isOpen: _openModes,
-              groupValue: ThemeController.mode,
-              data: [
-                {'dark': ThemeMode.dark},
-                {'light': ThemeMode.light},
-              ],
-              onTap: (mode) async {
+              onChoice: (mode) async {
                 _openModes = false;
                 _dialogHeight = Get.height * 0.185;
                 setState(() {});
                 await ThemeController.changeMode(mode);
               },
+              data: [
+                {'dark': ThemeMode.dark},
+                {'light': ThemeMode.light},
+              ],
+              groupValue: ThemeController.mode,
             ),
           ],
         ),
