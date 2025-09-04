@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../controller/game_controller.dart';
+import '../../../controller/snake_controller.dart';
 import '../../../core/config/theme.dart';
 
 // ignore: must_be_immutable
 class ControlleButtons extends StatelessWidget {
   ControlleButtons({super.key});
-  final GameController _gContr = Get.find<GameController>();
+  final SnakeController _sContr = Get.find<SnakeController>();
   final ThemeData _appTheme = AppTheme.theme;
   double bSize = (Get.width * 0.45) / 3;
   @override
@@ -29,7 +29,7 @@ class ControlleButtons extends StatelessWidget {
   }
 
   Widget _left() => InkWell(
-    onTap: _gContr.toLeft,
+    onTap: _sContr.toLeft,
     child: Container(
       width: bSize,
       height: bSize,
@@ -41,7 +41,7 @@ class ControlleButtons extends StatelessWidget {
     ),
   );
   Widget _right() => InkWell(
-    onTap: _gContr.toRight,
+    onTap: _sContr.toRight,
     child: Container(
       width: bSize,
       height: bSize,
@@ -53,7 +53,7 @@ class ControlleButtons extends StatelessWidget {
     ),
   );
   Widget _top() => InkWell(
-    onTap: _gContr.toTop,
+    onTap: _sContr.toTop,
     child: Container(
       width: bSize,
       height: bSize,
@@ -65,7 +65,7 @@ class ControlleButtons extends StatelessWidget {
     ),
   );
   Widget _bottom() => InkWell(
-    onTap: _gContr.toBottom,
+    onTap: _sContr.toBottom,
     child: Container(
       width: bSize,
       height: bSize,

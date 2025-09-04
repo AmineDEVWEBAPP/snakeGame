@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../controller/game_controller.dart';
+import '../../../controller/snake_controller.dart';
 import '../../../core/config/theme.dart';
 
 class GameCard extends StatelessWidget {
@@ -32,12 +33,12 @@ class GameCard extends StatelessWidget {
     );
   }
 
-  Widget _pixel(int index) => GetBuilder<GameController>(
+  Widget _pixel(int index) => GetBuilder<SnakeController>(
     id: 'snakeLocation',
     builder: (controller) => Container(
       decoration: BoxDecoration(
         // border: Border.all(color: Colors.white),
-        color: controller.snakePixels.contains(index)
+        color: controller.pixels.contains(index)
             ? Colors.orange
             : controller.ballLocation == index
             ? Colors.blue
