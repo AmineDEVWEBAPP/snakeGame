@@ -9,11 +9,13 @@ class ExpandedDialog extends StatefulWidget {
     required this.isOpen,
     required this.data,
     required this.onTap,
+    required this.groupValue,
   });
   final Offset? offset;
   final bool isOpen;
   final List<Map<String, dynamic>> data;
   final void Function(dynamic v) onTap;
+  final dynamic groupValue;
 
   @override
   State<ExpandedDialog> createState() => _ExpandedDialogState();
@@ -42,7 +44,7 @@ class _ExpandedDialogState extends State<ExpandedDialog> {
             widget.data.length,
             (i) => RadioListTile(
               value: widget.data[i].values.elementAt(0),
-              groupValue: _groupValue,
+              groupValue: _groupValue ?? widget.groupValue,
               onChanged: (v) async {
                 _groupValue = v;
                 setState(() {});

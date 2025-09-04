@@ -14,6 +14,7 @@ class GameDrawer extends StatefulWidget {
 
 class _GameDrawerState extends State<GameDrawer> {
   final ThemeData _theme = ThemeController.theme;
+  final GameController _gContr = Get.find<GameController>();
   bool _openLevels = false;
   bool _openModes = false;
   double _dialogHeight = Get.height * 0.185;
@@ -49,21 +50,23 @@ class _GameDrawerState extends State<GameDrawer> {
             ExpandedDialog(
               offset: Offset(0, -Get.height * 0.025),
               isOpen: _openLevels,
+              groupValue: _gContr.level,
               data: [
                 {'Level 1': 1},
                 {'Level 2': 2},
                 {'Level 3': 3},
               ],
-              onTap: (v) {
+              onTap: (level) async {
                 _openLevels = false;
-                _dialogHeight = Get.height * 0.25;
+                _dialogHeight = Get.height * 0.185;
                 setState(() {});
+                await _gContr.changeLevel(level);
               },
             ),
             _button(Icons.score, 'top score', () {
               Get.defaultDialog(
                 title: 'Top score',
-                middleText: '2993',
+                middleText: _gContr.topScore.toString(),
                 backgroundColor: _theme.hintColor,
                 titleStyle: TextStyle(fontSize: 15),
                 middleTextStyle: TextStyle(fontSize: 30),
@@ -78,16 +81,17 @@ class _GameDrawerState extends State<GameDrawer> {
             }),
             ExpandedDialog(
               offset: Offset(0, -Get.height * 0.025),
-
               isOpen: _openModes,
+              groupValue: ThemeController.mode,
               data: [
                 {'dark': ThemeMode.dark},
                 {'light': ThemeMode.light},
               ],
-              onTap: (v) {
+              onTap: (mode) async {
                 _openModes = false;
                 _dialogHeight = Get.height * 0.185;
                 setState(() {});
+                await ThemeController.changeMode(mode);
               },
             ),
           ],

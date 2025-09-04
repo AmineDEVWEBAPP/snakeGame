@@ -5,8 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../core/utils/methodes.dart';
 
 class ThemeController {
-  ThemeController._();
-  static final ThemeController _instance = ThemeController._();
+  static final ThemeController _instance = ThemeController();
   late SharedPreferences shp;
   static late ThemeMode mode;
   static late ThemeData theme;
@@ -17,10 +16,10 @@ class ThemeController {
     await _instance.getTheme();
   }
 
-  static void changeMode(ThemeMode mode) {
+  static Future<void> changeMode(ThemeMode mode) async {
     logger('change themeMode to ${mode.name}');
     ThemeController.mode = mode;
-    _instance.shp.setString('mode', mode.name);
+    await _instance.shp.setString('mode', mode.name);
     Get.appUpdate();
   }
 

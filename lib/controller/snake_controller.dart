@@ -93,12 +93,15 @@ class SnakeController extends GetxController {
     }
   }
 
-  void _loss() {
+  void _loss() async {
     List<int> pixels = this.pixels
         .skipWhile((item) => item == this.pixels[0])
         .toList();
     if (pixels.contains(this.pixels[0])) {
       _gContr.stop();
+      if (_gContr.points > _gContr.topScore) {
+        await _gContr.saveTopScore();
+      }
     }
   }
 
