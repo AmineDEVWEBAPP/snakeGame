@@ -67,7 +67,7 @@ class GamePage extends StatelessWidget {
                       : controller.isStarting
                       ? 'Pause'
                       : 'Resume',
-                  style: TextStyle(color: _appTheme.secondaryHeaderColor),
+                  style: _appTheme.textTheme.bodyMedium,
                 ),
               ),
             ),

@@ -50,9 +50,10 @@ class AppTheme {
     cardColor: Colors.white38,
     secondaryHeaderColor: Colors.yellow,
     textTheme: TextTheme(
-      bodyMedium: TextStyle(color: Colors.white),
-      bodyLarge: TextStyle(color: Colors.white),
-      bodySmall: TextStyle(color: Colors.white),
+      bodyMedium: TextStyle(color: Colors.yellow),
+      bodyLarge: TextStyle(color: Colors.yellow),
+      bodySmall: TextStyle(color: Colors.yellow),
     ),
+    iconTheme: IconThemeData(color: Colors.yellow),
   );
 }

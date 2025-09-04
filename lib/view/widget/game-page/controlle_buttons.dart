@@ -37,10 +37,7 @@ class ControlleButtons extends StatelessWidget {
         color: _appTheme.cardColor,
         borderRadius: BorderRadius.circular(10),
       ),
-      child: Icon(
-        Icons.arrow_back_ios_new,
-        color: _appTheme.scaffoldBackgroundColor,
-      ),
+      child: Icon(Icons.arrow_back_ios_new),
     ),
   );
   Widget _right() => InkWell(
@@ -52,10 +49,7 @@ class ControlleButtons extends StatelessWidget {
         color: _appTheme.cardColor,
         borderRadius: BorderRadius.circular(10),
       ),
-      child: Icon(
-        Icons.arrow_forward_ios,
-        color: _appTheme.scaffoldBackgroundColor,
-      ),
+      child: Icon(Icons.arrow_forward_ios),
     ),
   );
   Widget _top() => InkWell(
@@ -67,13 +61,7 @@ class ControlleButtons extends StatelessWidget {
         color: _appTheme.cardColor,
         borderRadius: BorderRadius.circular(10),
       ),
-      child: RotatedBox(
-        quarterTurns: 1,
-        child: Icon(
-          Icons.arrow_back_ios_new,
-          color: _appTheme.scaffoldBackgroundColor,
-        ),
-      ),
+      child: RotatedBox(quarterTurns: 1, child: Icon(Icons.arrow_back_ios_new)),
     ),
   );
   Widget _bottom() => InkWell(
@@ -87,10 +75,7 @@ class ControlleButtons extends StatelessWidget {
       ),
       child: RotatedBox(
         quarterTurns: -1,
-        child: Icon(
-          Icons.arrow_back_ios_new,
-          color: _appTheme.scaffoldBackgroundColor,
-        ),
+        child: Icon(Icons.arrow_back_ios_new),
       ),
     ),
   );

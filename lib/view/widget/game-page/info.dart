@@ -7,11 +7,6 @@ class Info extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      child: Text(
-        '$keyw : $value',
-        style: TextStyle(color: Colors.yellow, fontSize: 17),
-      ),
-    );
+    return Align(child: Text('$keyw : $value', style: TextStyle(fontSize: 17)));
   }
 }
