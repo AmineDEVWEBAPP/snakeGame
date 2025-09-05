@@ -63,6 +63,7 @@ class GameController extends GetxController {
   Future<void> changeLevel(int level) async {
     logger('change level to $level');
     this.level = level;
+    _sContr.speed = getSpeed(level);
     update(['info']);
     await _shP.setInt('level', level);
   }

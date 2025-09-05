@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../controller/snake_controller.dart';
 import '../../../controller/theme_controller.dart';
 
-// ignore: must_be_immutable
 class ControlleButtons extends StatelessWidget {
   ControlleButtons({
     super.key,
@@ -14,7 +12,6 @@ class ControlleButtons extends StatelessWidget {
     required this.right,
   });
   final ThemeData _appTheme = ThemeController.theme;
-  double bSize = (Get.width * 0.45) / 3;
   final void Function() left;
   final void Function() top;
   final void Function() bottom;
@@ -40,8 +37,8 @@ class ControlleButtons extends StatelessWidget {
   Widget _button(void Function() onTap, {int? turns}) => InkWell(
     onTap: onTap,
     child: Container(
-      width: bSize,
-      height: bSize,
+      width: (Get.width * 0.45) / 3,
+      height: (Get.width * 0.45) / 3,
       decoration: BoxDecoration(
         color: _appTheme.cardColor,
         borderRadius: BorderRadius.circular(10),

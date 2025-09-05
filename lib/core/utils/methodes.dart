@@ -8,3 +8,14 @@ void logger(String? message) {
 Future<void> initServices() async {
   await ThemeController.init();
 }
+
+int getSpeed(int level) {
+  switch (level) {
+    case 1:
+      return 390;
+    case 2:
+      return 250;
+    default:
+      return 130;
+  }
+}

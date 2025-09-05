@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 
 import '../core/const/enums.dart';
+import '../core/utils/methodes.dart';
 import 'game_controller.dart';
 
 class SnakeController extends GetxController {
@@ -10,10 +11,12 @@ class SnakeController extends GetxController {
   late List<int> pixels;
   late int ballLocation;
   final List<Deriction> _footPrint = [];
+  late int speed;
 
   @override
   void onInit() {
     _getRandomVars();
+    speed = getSpeed(_gContr.level);
     super.onInit();
   }
 
@@ -62,7 +65,7 @@ class SnakeController extends GetxController {
       _addHieght(_guide);
       update(['pixel']);
       _loss();
-      await Future.delayed(const Duration(milliseconds: 600));
+      await Future.delayed(Duration(milliseconds: speed));
     }
   }
 
