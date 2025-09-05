@@ -6,10 +6,19 @@ import '../../../controller/theme_controller.dart';
 
 // ignore: must_be_immutable
 class ControlleButtons extends StatelessWidget {
-  ControlleButtons({super.key});
-  final SnakeController _sContr = Get.find<SnakeController>();
+  ControlleButtons({
+    super.key,
+    required this.left,
+    required this.top,
+    required this.bottom,
+    required this.right,
+  });
   final ThemeData _appTheme = ThemeController.theme;
   double bSize = (Get.width * 0.45) / 3;
+  final void Function() left;
+  final void Function() top;
+  final void Function() bottom;
+  final void Function() right;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -17,55 +26,19 @@ class ControlleButtons extends StatelessWidget {
       height: Get.width * 0.45,
       child: Row(
         children: [
-          _left(),
+          _button(left),
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [_top(), _bottom()],
+            children: [_button(top, turns: 1), _button(bottom, turns: -1)],
           ),
-          _right(),
+          _button(right, turns: 2),
         ],
       ),
     );
   }
 
-  Widget _left() => InkWell(
-    onTap: _sContr.toLeft,
-    child: Container(
-      width: bSize,
-      height: bSize,
-      decoration: BoxDecoration(
-        color: _appTheme.cardColor,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Icon(Icons.arrow_back_ios_new),
-    ),
-  );
-  Widget _right() => InkWell(
-    onTap: _sContr.toRight,
-    child: Container(
-      width: bSize,
-      height: bSize,
-      decoration: BoxDecoration(
-        color: _appTheme.cardColor,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Icon(Icons.arrow_forward_ios),
-    ),
-  );
-  Widget _top() => InkWell(
-    onTap: _sContr.toTop,
-    child: Container(
-      width: bSize,
-      height: bSize,
-      decoration: BoxDecoration(
-        color: _appTheme.cardColor,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: RotatedBox(quarterTurns: 1, child: Icon(Icons.arrow_back_ios_new)),
-    ),
-  );
-  Widget _bottom() => InkWell(
-    onTap: _sContr.toBottom,
+  Widget _button(void Function() onTap, {int? turns}) => InkWell(
+    onTap: onTap,
     child: Container(
       width: bSize,
       height: bSize,
@@ -74,7 +47,7 @@ class ControlleButtons extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       child: RotatedBox(
-        quarterTurns: -1,
+        quarterTurns: turns ?? 0,
         child: Icon(Icons.arrow_back_ios_new),
       ),
     ),

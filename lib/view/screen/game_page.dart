@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../../controller/drawer_controller.dart';
 import '../../controller/game_controller.dart';
+import '../../controller/snake_controller.dart';
 import '../../controller/theme_controller.dart';
 import '../../core/const/enums.dart';
 import '../widget/game-page/controlle_buttons.dart';
@@ -16,6 +17,7 @@ class GamePage extends StatelessWidget {
   final ThemeData _appTheme = ThemeController.theme;
   final GlobalKey<ScaffoldState> _scaffoldState = GlobalKey();
   final GameDrawerController _gdContr = Get.find<GameDrawerController>();
+  final SnakeController _sContr = Get.find<SnakeController>();
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +51,12 @@ class GamePage extends StatelessWidget {
             ),
             GameCard(),
             SizedBox(height: 40),
-            ControlleButtons(),
+            ControlleButtons(
+              left: _sContr.toLeft,
+              right: _sContr.toRight,
+              top: _sContr.toTop,
+              bottom: _sContr.toBottom,
+            ),
             SizedBox(height: 50),
             GetBuilder<GameController>(
               id: 'statusButton',
