@@ -41,19 +41,27 @@ class SnakeController extends GetxController {
   }
 
   void toTop() {
-    _deriction = Deriction.top;
+    if (_deriction != Deriction.bottom) {
+      _deriction = Deriction.top;
+    }
   }
 
   void toBottom() {
-    _deriction = Deriction.bottom;
+    if (_deriction != Deriction.top) {
+      _deriction = Deriction.bottom;
+    }
   }
 
   void toLeft() {
-    _deriction = Deriction.left;
+    if (_deriction != Deriction.right) {
+      _deriction = Deriction.left;
+    }
   }
 
   void toRight() {
-    _deriction = Deriction.right;
+    if (_deriction != Deriction.left) {
+      _deriction = Deriction.right;
+    }
   }
 
   Future<void> updateLocation() async {
