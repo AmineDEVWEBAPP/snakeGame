@@ -73,12 +73,22 @@ class SnakeController extends GetxController {
       for (int i = 0; i < pixels.length; i++) {
         _moveSnake(i == 0 ? _deriction : _footPrint.reversed.toList()[i], i);
       }
-      _addHieght(_guide);
+      _increaseHieght(_guide);
       headPixel = pixels.first;
       tail = pixels.last;
       update(['pixel']);
       _loss();
       await Future.delayed(Duration(milliseconds: speed));
+    }
+  }
+
+  void _increaseHieght(int pixel) {
+    if (pixels[0] == ballLocation) {
+      _changeBallLocation();
+      _gContr.points++;
+      _gContr.update(['info']);
+      int addNum = pixels.last - _guide;
+      pixels.add(addNum);
     }
   }
 
@@ -96,43 +106,37 @@ class SnakeController extends GetxController {
       case Deriction.right:
         _guide = 1;
     }
-    _outSide(_deriction, pixelIndex);
     pixels[pixelIndex] += _guide;
+
+    _outSide(_deriction, pixelIndex);
   }
 
   void _outSide(Deriction snakeDeri, int pixelIndex) {
+    List<int> rightNums = List.generate(15, (i) => (15 * i) + 14);
+    List<int> leftNums = List.generate(15, (i) => 15 * i);
+    List<int> topNums = List.generate(15, (i) => i);
+    List<int> bottomNums = List.generate(15, (i) => i + 210);
+
     switch (snakeDeri) {
       case Deriction.top:
-        if (pixels[pixelIndex] < 15) {
+        if (topNums.contains(pixels[pixelIndex])) {
           pixels[pixelIndex] += 225;
         }
         break;
       case Deriction.bottom:
-        if (pixels[pixelIndex] > 209) {
+        if (bottomNums.contains(pixels[pixelIndex])) {
           pixels[pixelIndex] -= 225;
         }
         break;
       case Deriction.left:
-        List<int> leftNums = List.generate(15, (i) => 15 * i);
         if (leftNums.contains(pixels[pixelIndex])) {
           pixels[pixelIndex] += 15;
         }
         break;
       case Deriction.right:
-        List<int> rightNums = List.generate(15, (i) => (15 * i) + 14);
         if (rightNums.contains(pixels[pixelIndex])) {
           pixels[pixelIndex] -= 15;
         }
-    }
-  }
-
-  void _addHieght(int pixel) {
-    if (pixels[0] == ballLocation) {
-      _changeBallLocation();
-      _gContr.points++;
-      _gContr.update(['info']);
-      int addNum = pixels.last - _guide;
-      pixels.add(addNum);
     }
   }
 

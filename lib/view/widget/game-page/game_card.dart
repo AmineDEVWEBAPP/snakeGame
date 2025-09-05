@@ -37,7 +37,7 @@ class GameCard extends StatelessWidget {
     id: 'pixel',
     builder: (controller) => Container(
       decoration: BoxDecoration(
-        // border: Border.all(color: Colors.white),
+        border: Border.all(color: Colors.white),
         color: controller.pixels.contains(index)
             ? controller.headPixel == index
                   ? Colors.pink
@@ -46,7 +46,7 @@ class GameCard extends StatelessWidget {
             ? Colors.blue
             : null,
       ),
-      // child: Text(index.toString(), style: TextStyle(fontSize: 10)),
+      child: Text(index.toString(), style: TextStyle(fontSize: 10)),
     ),
   );
 }
