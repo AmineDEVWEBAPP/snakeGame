@@ -12,6 +12,8 @@ class SnakeController extends GetxController {
   late int ballLocation;
   final List<Deriction> _footPrint = [];
   late int speed;
+  late int headPixel;
+  int tail = -1;
 
   @override
   void onInit() {
@@ -25,6 +27,7 @@ class SnakeController extends GetxController {
     allPixels.shuffle();
     // get random snake pixel
     pixels = [allPixels[0]];
+    headPixel = pixels[0];
     // get random ball pixels
     allPixels.removeAt(0);
     ballLocation = allPixels[0];
@@ -71,6 +74,8 @@ class SnakeController extends GetxController {
         _moveSnake(i == 0 ? _deriction : _footPrint.reversed.toList()[i], i);
       }
       _addHieght(_guide);
+      headPixel = pixels.first;
+      tail = pixels.last;
       update(['pixel']);
       _loss();
       await Future.delayed(Duration(milliseconds: speed));
