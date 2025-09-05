@@ -75,22 +75,11 @@ class GamePage extends StatelessWidget {
                     case GameStatus.restart:
                       controller.restart();
                   }
-                  // controller.isStarting
-                  //     ? controller.stop()
-                  //     : controller.start();
                 },
                 child: Text(
                   controller.status.name,
                   style: _appTheme.textTheme.bodyMedium,
                 ),
-                // child: Text(
-                //   !controller.isStarted
-                //       ? 'Start'
-                //       : controller.isStarting
-                //       ? 'Pause'
-                //       : 'Resume',
-                //   style: _appTheme.textTheme.bodyMedium,
-                // ),
               ),
             ),
           ],
