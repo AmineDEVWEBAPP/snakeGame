@@ -34,7 +34,7 @@ class GameCard extends StatelessWidget {
   }
 
   Widget _pixel(int index) => GetBuilder<SnakeController>(
-    id: 'snakeLocation',
+    id: 'pixel',
     builder: (controller) => Container(
       decoration: BoxDecoration(
         // border: Border.all(color: Colors.white),

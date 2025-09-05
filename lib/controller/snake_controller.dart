@@ -31,6 +31,12 @@ class SnakeController extends GetxController {
     _deriction = Deriction.values[deriLengths[0]];
   }
 
+  void reInit() {
+    pixels = [];
+    _getRandomVars();
+    update(['pixel']);
+  }
+
   void toTop() {
     _deriction = Deriction.top;
   }
@@ -54,7 +60,7 @@ class SnakeController extends GetxController {
         _moveSnake(i == 0 ? _deriction : _footPrint.reversed.toList()[i], i);
       }
       _addHieght(_guide);
-      update(['snakeLocation']);
+      update(['pixel']);
       _loss();
       await Future.delayed(const Duration(milliseconds: 600));
     }
@@ -134,7 +140,7 @@ class SnakeController extends GetxController {
     }
     allPixels.shuffle();
     ballLocation = allPixels[0];
-    update(['snakeLocation']);
+    update(['pixel']);
   }
 
   void _loggerPrints() {

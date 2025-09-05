@@ -53,7 +53,11 @@ class GameController extends GetxController {
 
   void restart() {
     logger('Restart game');
-    status = GameStatus.start;
+    status = GameStatus.pause;
+    _sContr.reInit();
+    points = 0;
+    start();
+    update(['statusButton', 'info']);
   }
 
   Future<void> changeLevel(int level) async {
