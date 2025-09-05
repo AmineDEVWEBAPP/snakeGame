@@ -6,24 +6,45 @@ import 'game_controller.dart';
 class SnakeController extends GetxController {
   final GameController _gContr = Get.find<GameController>();
   int _guide = 1;
-  SnakeDeri _deriction = SnakeDeri.left;
-  final List<SnakeDeri> _footPrint = [];
-  List<int> pixels = [100];
-  int ballLocation = 50;
+  late Deriction _deriction;
+  late List<int> pixels;
+  late int ballLocation;
+  final List<Deriction> _footPrint = [];
+
+  @override
+  void onInit() {
+    _getRandomVars();
+    super.onInit();
+  }
+
+  void _getRandomVars() {
+    List<int> allPixels = List.generate(224, (i) => i);
+    allPixels.shuffle();
+    // get random snake pixel
+    pixels = [allPixels[0]];
+    // get random ball pixels
+    allPixels.removeAt(0);
+    ballLocation = allPixels[0];
+    //get random deriction
+    List<int> deriLengths = [0, 1, 2, 3];
+    deriLengths.shuffle();
+    _deriction = Deriction.values[deriLengths[0]];
+  }
+
   void toTop() {
-    _deriction = SnakeDeri.top;
+    _deriction = Deriction.top;
   }
 
   void toBottom() {
-    _deriction = SnakeDeri.bottom;
+    _deriction = Deriction.bottom;
   }
 
   void toLeft() {
-    _deriction = SnakeDeri.left;
+    _deriction = Deriction.left;
   }
 
   void toRight() {
-    _deriction = SnakeDeri.right;
+    _deriction = Deriction.right;
   }
 
   Future<void> updateLocation() async {
@@ -39,43 +60,43 @@ class SnakeController extends GetxController {
     }
   }
 
-  void _moveSnake(SnakeDeri snakeDeri, int pixelIndex) {
+  void _moveSnake(Deriction snakeDeri, int pixelIndex) {
     switch (snakeDeri) {
-      case SnakeDeri.top:
+      case Deriction.top:
         _guide = -15;
         break;
-      case SnakeDeri.bottom:
+      case Deriction.bottom:
         _guide = 15;
         break;
-      case SnakeDeri.left:
+      case Deriction.left:
         _guide = -1;
         break;
-      case SnakeDeri.right:
+      case Deriction.right:
         _guide = 1;
     }
     _outSide(_deriction, pixelIndex);
     pixels[pixelIndex] += _guide;
   }
 
-  void _outSide(SnakeDeri snakeDeri, int pixelIndex) {
+  void _outSide(Deriction snakeDeri, int pixelIndex) {
     switch (snakeDeri) {
-      case SnakeDeri.top:
+      case Deriction.top:
         if (pixels[pixelIndex] < 15) {
           pixels[pixelIndex] += 225;
         }
         break;
-      case SnakeDeri.bottom:
+      case Deriction.bottom:
         if (pixels[pixelIndex] > 209) {
           pixels[pixelIndex] -= 225;
         }
         break;
-      case SnakeDeri.left:
+      case Deriction.left:
         List<int> leftNums = List.generate(15, (i) => 15 * i);
         if (leftNums.contains(pixels[pixelIndex])) {
           pixels[pixelIndex] += 15;
         }
         break;
-      case SnakeDeri.right:
+      case Deriction.right:
         List<int> rightNums = List.generate(15, (i) => (15 * i) + 14);
         if (rightNums.contains(pixels[pixelIndex])) {
           pixels[pixelIndex] -= 15;
@@ -99,6 +120,7 @@ class SnakeController extends GetxController {
         .toList();
     if (pixels.contains(this.pixels[0])) {
       _gContr.stop();
+      _gContr.status = GameStatus.restart;
       if (_gContr.points > _gContr.topScore) {
         await _gContr.saveTopScore();
       }
@@ -106,12 +128,12 @@ class SnakeController extends GetxController {
   }
 
   void _changeBallLocation() {
-    List<int> allLocations = List.generate(224, (i) => i);
+    List<int> allPixels = List.generate(224, (i) => i);
     for (var item in pixels) {
-      allLocations.remove(item);
+      allPixels.remove(item);
     }
-    allLocations.shuffle();
-    ballLocation = allLocations[0];
+    allPixels.shuffle();
+    ballLocation = allPixels[0];
     update(['snakeLocation']);
   }
 

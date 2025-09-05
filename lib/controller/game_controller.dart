@@ -1,12 +1,14 @@
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../core/const/enums.dart';
 import '../core/utils/methodes.dart';
 import 'snake_controller.dart';
 
 class GameController extends GetxController {
   bool isStarting = false;
   bool isStarted = false;
+  GameStatus status = GameStatus.start;
   int points = 0;
   int level = 1;
   late int topScore;
@@ -34,7 +36,8 @@ class GameController extends GetxController {
       logger('Start game');
       !isStarted ? isStarted = true : null;
       isStarting = true;
-      update(['startButton']);
+      status = GameStatus.pause;
+      update(['statusButton']);
       _sContr.updateLocation();
     }
   }
@@ -42,9 +45,15 @@ class GameController extends GetxController {
   void stop() {
     if (isStarting) {
       logger('Stop game');
+      status = GameStatus.resume;
       isStarting = false;
     }
-    update(['startButton']);
+    update(['statusButton']);
+  }
+
+  void restart() {
+    logger('Restart game');
+    status = GameStatus.start;
   }
 
   Future<void> changeLevel(int level) async {
@@ -56,6 +65,7 @@ class GameController extends GetxController {
 
   Future<void> saveTopScore() async {
     logger('save top Score : $points');
+    topScore = points;
     await _shP.setInt('topScore', points);
   }
 }

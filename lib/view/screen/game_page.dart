@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../../controller/drawer_controller.dart';
 import '../../controller/game_controller.dart';
 import '../../controller/theme_controller.dart';
+import '../../core/const/enums.dart';
 import '../widget/game-page/controlle_buttons.dart';
 import 'drawer.dart';
 import '../widget/drawer/icon.dart';
@@ -51,24 +52,38 @@ class GamePage extends StatelessWidget {
             ControlleButtons(),
             SizedBox(height: 50),
             GetBuilder<GameController>(
-              id: 'startButton',
+              id: 'statusButton',
               builder: (controller) => ElevatedButton(
                 style: ButtonStyle(
                   backgroundColor: WidgetStatePropertyAll(_appTheme.cardColor),
                 ),
                 onPressed: () {
-                  controller.isStarting
-                      ? controller.stop()
-                      : controller.start();
+                  switch (controller.status) {
+                    case GameStatus.start || GameStatus.resume:
+                      controller.start();
+                      break;
+                    case GameStatus.pause:
+                      controller.stop();
+                      break;
+                    case GameStatus.restart:
+                      controller.restart();
+                  }
+                  // controller.isStarting
+                  //     ? controller.stop()
+                  //     : controller.start();
                 },
                 child: Text(
-                  !controller.isStarted
-                      ? 'Start'
-                      : controller.isStarting
-                      ? 'Pause'
-                      : 'Resume',
+                  controller.status.name,
                   style: _appTheme.textTheme.bodyMedium,
                 ),
+                // child: Text(
+                //   !controller.isStarted
+                //       ? 'Start'
+                //       : controller.isStarting
+                //       ? 'Pause'
+                //       : 'Resume',
+                //   style: _appTheme.textTheme.bodyMedium,
+                // ),
               ),
             ),
           ],
