@@ -42,7 +42,15 @@ class ThemeController {
         : ThemeController.theme = _lightTheme;
   }
 
-  final ThemeData _lightTheme = ThemeData();
+  final ThemeData _lightTheme = ThemeData(
+    scaffoldBackgroundColor: Colors.white,
+    focusColor: Colors.grey[200],
+    cardColor: Colors.yellow[100],
+    secondaryHeaderColor: Colors.blue,
+    hintColor: Colors.grey[400],
+    textTheme: TextTheme(bodyMedium: TextStyle(color: Colors.blue)),
+    iconTheme: IconThemeData(color: Colors.blue),
+  );
   final ThemeData _darkTheme = ThemeData(
     scaffoldBackgroundColor: const Color.fromARGB(255, 22, 22, 22),
     focusColor: const Color.fromARGB(255, 38, 38, 38),
