@@ -13,7 +13,7 @@ class SnakeController extends GetxController {
   final int _horizontalPixel = 1;
   // guid is make pixels move horizontal or vertical
   late int _guide;
-  late Deriction _deriction;
+  late Direction _deriction;
   // the first item in pixels is head and last item is tail
   late List<int> pixels;
   // height is the pixels withode headPixel
@@ -45,7 +45,7 @@ class SnakeController extends GetxController {
     //get random deriction
     List<int> deriLengths = [0, 1, 2, 3];
     deriLengths.shuffle();
-    _deriction = Deriction.values[deriLengths[0]];
+    _deriction = Direction.values[deriLengths[0]];
   }
 
   void reInit() {
@@ -55,26 +55,26 @@ class SnakeController extends GetxController {
   }
 
   void toTop() {
-    if (_deriction != Deriction.bottom) {
-      _deriction = Deriction.top;
+    if (_deriction != Direction.bottom) {
+      _deriction = Direction.top;
     }
   }
 
   void toBottom() {
-    if (_deriction != Deriction.top) {
-      _deriction = Deriction.bottom;
+    if (_deriction != Direction.top) {
+      _deriction = Direction.bottom;
     }
   }
 
   void toLeft() {
-    if (_deriction != Deriction.right) {
-      _deriction = Deriction.left;
+    if (_deriction != Direction.right) {
+      _deriction = Direction.left;
     }
   }
 
   void toRight() {
-    if (_deriction != Deriction.left) {
-      _deriction = Deriction.right;
+    if (_deriction != Direction.left) {
+      _deriction = Direction.right;
     }
   }
 
@@ -123,16 +123,16 @@ class SnakeController extends GetxController {
   void _movePixels() async {
     // value the guide to move the pixel
     switch (_deriction) {
-      case Deriction.top:
+      case Direction.top:
         _guide = -_verticalPixel;
         break;
-      case Deriction.bottom:
+      case Direction.bottom:
         _guide = _verticalPixel;
         break;
-      case Deriction.left:
+      case Direction.left:
         _guide = -_horizontalPixel;
         break;
-      case Deriction.right:
+      case Direction.right:
         _guide = _horizontalPixel;
     }
     // move head pixel
@@ -152,22 +152,22 @@ class SnakeController extends GetxController {
     // check each pixel by for loop if is it in outside
     for (int i = 0; i < _height; i++) {
       switch (_deriction) {
-        case Deriction.top:
+        case Direction.top:
           if (topNums.contains(pixels[i])) {
             pixels[i] += 225;
           }
           break;
-        case Deriction.bottom:
+        case Direction.bottom:
           if (bottomNums.contains(pixels[i])) {
             pixels[i] -= 225;
           }
           break;
-        case Deriction.left:
+        case Direction.left:
           if (leftNums.contains(pixels[i])) {
             pixels[i] += 15;
           }
           break;
-        case Deriction.right:
+        case Direction.right:
           if (rightNums.contains(pixels[i])) {
             pixels[i] -= 15;
           }
