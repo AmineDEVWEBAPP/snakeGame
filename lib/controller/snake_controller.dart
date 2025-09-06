@@ -23,6 +23,7 @@ class SnakeController extends GetxController {
   late int speed;
   late int head;
   late int tail;
+  bool _allowRedirection = true;
 
   @override
   void onInit() {
@@ -55,31 +56,35 @@ class SnakeController extends GetxController {
   }
 
   void toTop() {
-    if (_deriction != Direction.bottom) {
+    if (_deriction != Direction.bottom && _allowRedirection) {
       _deriction = Direction.top;
+      _allowRedirection = false;
     }
   }
 
   void toBottom() {
-    if (_deriction != Direction.top) {
+    if (_deriction != Direction.top && _allowRedirection) {
       _deriction = Direction.bottom;
+      _allowRedirection = false;
     }
   }
 
   void toLeft() {
-    if (_deriction != Direction.right) {
+    if (_deriction != Direction.right && _allowRedirection) {
       _deriction = Direction.left;
+      _allowRedirection = false;
     }
   }
 
   void toRight() {
-    if (_deriction != Direction.left) {
+    if (_deriction != Direction.left && _allowRedirection) {
       _deriction = Direction.right;
     }
   }
 
   Future<void> updateLocation() async {
     while (_gContr.isStarting) {
+      _allowRedirection = true;
       // logger head Pixel for body pixel following the prints
       _loggerPrints();
       // check if the pixel is in outSide appears in opposide side
