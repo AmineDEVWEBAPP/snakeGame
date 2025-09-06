@@ -6,15 +6,20 @@ import 'game_controller.dart';
 
 class SnakeController extends GetxController {
   final GameController _gContr = Get.find<GameController>();
+  final List<int> _allPixels = List.generate(224, (i) => i);
+  // verticalPixel and horizontalPixel is the next pixel dependant
+  // about if is it horizontal or vertical
   final int _verticalPixel = 15;
   final int _horizontalPixel = 1;
+  // guid is make pixels move horizontal or vertical
   late int _guide;
   late Deriction _deriction;
+  // the first item in pixels is head and last item is tail
   late List<int> pixels;
-  late int ballLocation;
-  final List<Deriction> _footPrint = [];
+  late int ball;
+  late List<Deriction> _footPrint;
   late int speed;
-  late int headPixel;
+  late int head;
   late int tail;
 
   @override
@@ -25,19 +30,18 @@ class SnakeController extends GetxController {
   }
 
   void _getRandomVars() {
-    List<int> allPixels = List.generate(224, (i) => i);
-    allPixels.shuffle();
+    _allPixels.shuffle();
     // get random snake pixel
-    pixels = [allPixels[0]];
-    headPixel = pixels.first;
+    pixels = [_allPixels.first];
+    head = pixels.first;
     tail = pixels.last;
     // get random ball pixels
-    allPixels.removeAt(0);
-    ballLocation = allPixels[0];
+    ball = _allPixels[1];
     //get random deriction
     List<int> deriLengths = [0, 1, 2, 3];
     deriLengths.shuffle();
     _deriction = Deriction.values[deriLengths[0]];
+    _footPrint = [_deriction];
   }
 
   void reInit() {
@@ -72,21 +76,30 @@ class SnakeController extends GetxController {
 
   Future<void> updateLocation() async {
     while (_gContr.isStarting) {
+      // logger head deriction for author pixels follow head
       _loggerPrints();
+      // move each pixel by for loop
       for (int i = 0; i < pixels.length; i++) {
-        _moveSnake(i == 0 ? _deriction : _footPrint.reversed.toList()[i], i);
+        // if the pixel is in outSide appears in opposide side
+        _outSide(_deriction, i);
+        // move the pixel
+        _movePixel(i == 0 ? _deriction : _footPrint[i], i);
+        update(['pixel']);
       }
+      // when the headPixel == ballPixel add a pixel to snakePixels
       _increaseHieght(_guide);
-      headPixel = pixels.first;
+      // value head and tail pixels
+      head = pixels.first;
       tail = pixels.last;
-      update(['pixel']);
+      // when the head == any author pixels working loss methode
       _loss();
+      // delayed same time after start next move
       await Future.delayed(Duration(milliseconds: speed));
     }
   }
 
   void _increaseHieght(int pixel) {
-    if (pixels[0] == ballLocation) {
+    if (pixels.first == ball) {
       _changeBallLocation();
       _gContr.points++;
       _gContr.update(['info']);
@@ -95,7 +108,8 @@ class SnakeController extends GetxController {
     }
   }
 
-  void _moveSnake(Deriction snakeDeri, int pixelIndex) {
+  void _movePixel(Deriction snakeDeri, int pixelIndex) async {
+    // value the guide to move the pixel
     switch (snakeDeri) {
       case Deriction.top:
         _guide = -_verticalPixel;
@@ -109,7 +123,7 @@ class SnakeController extends GetxController {
       case Deriction.right:
         _guide = _horizontalPixel;
     }
-    _outSide(_deriction, pixelIndex);
+    // move the pixel
     pixels[pixelIndex] += _guide;
   }
 
@@ -142,6 +156,13 @@ class SnakeController extends GetxController {
     }
   }
 
+  void _loggerPrints() {
+    _footPrint.insert(0, _deriction);
+    if (_footPrint.length > pixels.length) {
+      _footPrint.removeLast();
+    }
+  }
+
   void _loss() async {
     List<int> pixels = this.pixels
         .skipWhile((item) => item == this.pixels[0])
@@ -156,19 +177,10 @@ class SnakeController extends GetxController {
   }
 
   void _changeBallLocation() {
-    List<int> allPixels = List.generate(224, (i) => i);
     for (var item in pixels) {
-      allPixels.remove(item);
+      _allPixels.remove(item);
     }
-    allPixels.shuffle();
-    ballLocation = allPixels[0];
-    update(['pixel']);
-  }
-
-  void _loggerPrints() {
-    _footPrint.add(_deriction);
-    if (_footPrint.length > pixels.length) {
-      _footPrint.removeAt(0);
-    }
+    _allPixels.shuffle();
+    ball = _allPixels[0];
   }
 }

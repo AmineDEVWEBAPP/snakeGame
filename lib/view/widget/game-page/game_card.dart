@@ -39,10 +39,10 @@ class GameCard extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border.all(color: Colors.white),
         color: controller.pixels.contains(index)
-            ? controller.headPixel == index
+            ? controller.head == index
                   ? Colors.pink
                   : Colors.orange
-            : controller.ballLocation == index
+            : controller.ball == index
             ? Colors.blue
             : null,
       ),
