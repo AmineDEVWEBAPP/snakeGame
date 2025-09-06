@@ -50,12 +50,13 @@ class _ExpandedDialogState extends State<ExpandedDialog> {
                 setState(() {});
                 await Future.delayed(const Duration(milliseconds: 250));
                 widget.onTap(v);
+                _groupValue = widget.groupValue;
               },
               title: Text(
                 widget.data[i].keys.elementAt(0),
                 style: _theme.textTheme.bodyMedium,
               ),
-              fillColor: WidgetStatePropertyAll(Colors.yellow),
+              fillColor: WidgetStatePropertyAll(_theme.secondaryHeaderColor),
             ),
           ),
         ),

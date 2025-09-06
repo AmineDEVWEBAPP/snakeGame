@@ -32,6 +32,7 @@ class GameDrawerButton extends StatelessWidget {
           InkWell(
             onTap: onTap,
             child: Container(
+              height: Get.height * 0.038,
               padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
               decoration: BoxDecoration(
                 color: _theme.scaffoldBackgroundColor,

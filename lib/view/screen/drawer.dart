@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -33,7 +35,7 @@ class _GameDrawerState extends State<GameDrawer> {
         ),
       ),
       child: SingleChildScrollView(
-        physics: const NeverScrollableScrollPhysics(),
+        // physics: const NeverScrollableScrollPhysics(),
         child: Column(
           children: [
             GetBuilder<GameController>(
@@ -84,11 +86,11 @@ class _GameDrawerState extends State<GameDrawer> {
                 setState(() {});
               },
               isOpen: _openModes,
-              onChoice: (mode) async {
+              onChoice: (mode) {
                 _openModes = false;
                 _dialogHeight = Get.height * 0.185;
                 setState(() {});
-                await ThemeController.changeMode(mode);
+                _showModeDialog(mode);
               },
               data: [
                 {'dark': ThemeMode.dark},
@@ -106,6 +108,7 @@ class _GameDrawerState extends State<GameDrawer> {
     return InkWell(
       onTap: onTap,
       child: Container(
+        height: Get.height * 0.038,
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         margin: EdgeInsets.only(bottom: Get.height * 0.025),
         decoration: BoxDecoration(
@@ -122,4 +125,31 @@ class _GameDrawerState extends State<GameDrawer> {
       ),
     );
   }
+
+  Future _showModeDialog(ThemeMode mode) async => await Get.defaultDialog(
+    title: '',
+    titleStyle: const TextStyle(inherit: false, fontSize: 0, height: 0),
+    middleText:
+        'pleas restart the game for change\n theme mode to ${mode.name}',
+    backgroundColor: _theme.hintColor,
+    confirm: FilledButton(
+      onPressed: () async {
+        await ThemeController.changeMode(mode);
+        exit(1);
+      },
+      style: ButtonStyle(
+        backgroundColor: WidgetStatePropertyAll(_theme.scaffoldBackgroundColor),
+      ),
+      child: Text('restart', style: _theme.textTheme.bodyMedium),
+    ),
+    cancel: FilledButton(
+      onPressed: () {
+        Get.back();
+      },
+      style: ButtonStyle(
+        backgroundColor: WidgetStatePropertyAll(_theme.cardColor),
+      ),
+      child: Text('cancel', style: _theme.textTheme.bodyMedium),
+    ),
+  );
 }
