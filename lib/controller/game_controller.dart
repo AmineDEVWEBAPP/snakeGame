@@ -52,7 +52,6 @@ class GameController extends GetxController {
   }
 
   void restart() {
-    logger('Restart game');
     status = GameStatus.pause;
     _sContr.reInit();
     points = 0;

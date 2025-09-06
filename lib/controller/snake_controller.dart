@@ -17,7 +17,7 @@ class SnakeController extends GetxController {
   // the first item in pixels is head and last item is tail
   late List<int> pixels;
   // height is the pixels withode headPixel
-  int _height = 1;
+  late int _height;
   late int ball;
   late List<int> _pixelPrint;
   late int speed;
@@ -35,6 +35,7 @@ class SnakeController extends GetxController {
     _allPixels.shuffle();
     // get random snake pixel
     pixels = [_allPixels.first];
+    _height = pixels.length;
     head = pixels.first;
     tail = pixels.last;
     // init pixelPrint

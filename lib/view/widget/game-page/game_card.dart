@@ -8,12 +8,12 @@ import '../../../controller/theme_controller.dart';
 class GameCard extends StatelessWidget {
   GameCard({super.key});
   final ThemeData _theme = ThemeController.theme;
-
+  final double cardSize = Get.width * 0.9;
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: Get.width * 0.9,
-      width: Get.width * 0.9,
+      height: cardSize,
+      width: cardSize,
       decoration: BoxDecoration(
         border: BoxBorder.all(color: _theme.secondaryHeaderColor, width: 2),
         color: _theme.focusColor,
@@ -22,8 +22,8 @@ class GameCard extends StatelessWidget {
         id: 'snakeLocation',
         builder: (controller) => GridView.builder(
           padding: EdgeInsets.all(0),
-          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: 25,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 15,
           ),
           physics: const NeverScrollableScrollPhysics(),
           itemCount: 225,
@@ -37,7 +37,7 @@ class GameCard extends StatelessWidget {
     id: 'pixel',
     builder: (controller) => Container(
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.white),
+        // border: Border.all(color: Colors.white),
         color: controller.pixels.contains(index)
             ? controller.head == index
                   ? Colors.pink
@@ -46,7 +46,7 @@ class GameCard extends StatelessWidget {
             ? Colors.blue
             : null,
       ),
-      child: Text(index.toString(), style: TextStyle(fontSize: 10)),
+      // child: Text(index.toString(), style: TextStyle(fontSize: 10)),
     ),
   );
 }
