@@ -26,6 +26,8 @@ class _GameDrawerState extends State<GameDrawer> {
     return Container(
       height: _dialogHeight,
       width: Get.width * 0.6,
+      alignment: Alignment.center,
+
       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       decoration: BoxDecoration(
         color: _theme.hintColor,
@@ -35,7 +37,7 @@ class _GameDrawerState extends State<GameDrawer> {
         ),
       ),
       child: SingleChildScrollView(
-        // physics: const NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         child: Column(
           children: [
             GetBuilder<GameController>(
