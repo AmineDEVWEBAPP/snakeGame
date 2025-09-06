@@ -6,14 +6,16 @@ import 'game_controller.dart';
 
 class SnakeController extends GetxController {
   final GameController _gContr = Get.find<GameController>();
-  int _guide = 1;
+  final int _verticalPixel = 15;
+  final int _horizontalPixel = 1;
+  late int _guide;
   late Deriction _deriction;
   late List<int> pixels;
   late int ballLocation;
   final List<Deriction> _footPrint = [];
   late int speed;
   late int headPixel;
-  int tail = -1;
+  late int tail;
 
   @override
   void onInit() {
@@ -27,7 +29,8 @@ class SnakeController extends GetxController {
     allPixels.shuffle();
     // get random snake pixel
     pixels = [allPixels[0]];
-    headPixel = pixels[0];
+    headPixel = pixels.first;
+    tail = pixels.last;
     // get random ball pixels
     allPixels.removeAt(0);
     ballLocation = allPixels[0];
@@ -95,20 +98,19 @@ class SnakeController extends GetxController {
   void _moveSnake(Deriction snakeDeri, int pixelIndex) {
     switch (snakeDeri) {
       case Deriction.top:
-        _guide = -15;
+        _guide = -_verticalPixel;
         break;
       case Deriction.bottom:
-        _guide = 15;
+        _guide = _verticalPixel;
         break;
       case Deriction.left:
-        _guide = -1;
+        _guide = -_horizontalPixel;
         break;
       case Deriction.right:
-        _guide = 1;
+        _guide = _horizontalPixel;
     }
-    pixels[pixelIndex] += _guide;
-
     _outSide(_deriction, pixelIndex);
+    pixels[pixelIndex] += _guide;
   }
 
   void _outSide(Deriction snakeDeri, int pixelIndex) {
