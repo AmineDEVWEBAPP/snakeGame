@@ -44,7 +44,7 @@ class GamePage extends StatelessWidget {
               builder: (controller) => Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Info(keyw: 'P', value: controller.points.toString()),
+                  Info(keyw: 'SCORE', value: controller.points.toString()),
                   Info(keyw: 'LEVEL', value: controller.level.toString()),
                 ],
               ),
