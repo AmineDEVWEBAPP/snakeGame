@@ -36,20 +36,22 @@ class SnakeController extends GetxController {
   }
 
   void _getRandomVars() {
+    //get random deriction
+    List<int> deriLengths = [0, 1, 2, 3];
+    deriLengths.shuffle();
+    _deriction = Direction.values[deriLengths[0]];
+    // get random snake pixels
     _allPixels.shuffle();
-    // get random snake pixel
     pixels = [_allPixels.first];
+    // get random ball pixels
+    ball = _allPixels[1];
+    // add first pixel after head pixel
+    _increaseHieght(addTail: true);
     _height = pixels.length;
     head = pixels.first;
     tail = pixels.last;
     // init pixelPrint
     _pixelPrint = [head];
-    // get random ball pixels
-    ball = _allPixels[1];
-    //get random deriction
-    List<int> deriLengths = [0, 1, 2, 3];
-    deriLengths.shuffle();
-    _deriction = Direction.values[deriLengths[0]];
   }
 
   void reInit() {
@@ -114,18 +116,39 @@ class SnakeController extends GetxController {
     }
   }
 
-  void _increaseHieght() {
-    if (pixels.first == ball) {
-      if (_gContr.allowSounde) {
-        _audioPlayer.play(AssetSource(snakeSoundePath));
+  void _increaseHieght({bool addTail = false}) {
+    if (pixels.first == ball || addTail == true) {
+      if (addTail == false) {
+        if (_gContr.allowSounde) {
+          _audioPlayer.play(AssetSource(snakeSoundePath));
+        }
       }
       _changeBallLocation();
       _gContr.points++;
       _gContr.update(['info']);
-      int afterLastPixel =
-          pixels[pixels.lastIndexOf(pixels.last) - (pixels.length > 1 ? 1 : 0)];
-      int lastGuide = afterLastPixel - pixels.last;
-      int addPixel = pixels.last - lastGuide;
+      late int addPixel;
+      if (pixels.length > 1) {
+        int afterLastPixel =
+            pixels[pixels.lastIndexOf(pixels.last) -
+                (pixels.length > 1 ? 1 : 0)];
+        int lastGuide = afterLastPixel - pixels.last;
+        addPixel = pixels.last - lastGuide;
+      } else {
+        switch (_deriction) {
+          case Direction.top:
+            _guide = -_verticalPixel;
+            break;
+          case Direction.bottom:
+            _guide = _verticalPixel;
+            break;
+          case Direction.left:
+            _guide = -_horizontalPixel;
+            break;
+          case Direction.right:
+            _guide = _horizontalPixel;
+        }
+        addPixel = pixels.first - _guide;
+      }
       pixels.add(addPixel);
       _height = pixels.length;
     }
