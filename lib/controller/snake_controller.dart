@@ -1,5 +1,7 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:get/get.dart';
 
+import '../core/const/consts.dart';
 import '../core/const/enums.dart';
 import '../core/utils/methodes.dart';
 import 'game_controller.dart';
@@ -24,6 +26,7 @@ class SnakeController extends GetxController {
   late int head;
   late int tail;
   bool _allowRedirection = true;
+  final AudioPlayer _audioPlayer = AudioPlayer();
 
   @override
   void onInit() {
@@ -113,6 +116,7 @@ class SnakeController extends GetxController {
 
   void _increaseHieght() {
     if (pixels.first == ball) {
+      _audioPlayer.play(AssetSource(snakeSoundePath));
       _changeBallLocation();
       _gContr.points++;
       _gContr.update(['info']);
@@ -186,6 +190,7 @@ class SnakeController extends GetxController {
         .skipWhile((item) => item == this.pixels[0])
         .toList();
     if (pixels.contains(this.pixels[0])) {
+      _audioPlayer.play(AssetSource(lossSoundePath));
       _gContr.stop();
       _gContr.status = GameStatus.restart;
       if (_gContr.points > _gContr.topScore) {

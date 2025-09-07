@@ -35,7 +35,7 @@ class ControlleButtons extends StatelessWidget {
     );
   }
 
-  Widget _button(void Function() onTap, {int? turns}) => InkWell(
+  Widget _button(void Function() onTap, {int? turns}) => GestureDetector(
     onTap: onTap,
     child: Container(
       width: _cardSize / 3,
