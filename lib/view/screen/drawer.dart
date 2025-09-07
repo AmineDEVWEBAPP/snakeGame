@@ -19,10 +19,11 @@ class _GameDrawerState extends State<GameDrawer> {
   final GameController _gContr = Get.find<GameController>();
   bool _openLevels = false;
   bool _openModes = false;
+  bool _openSound = false;
 
   @override
   Widget build(BuildContext context) {
-    final Size size=MediaQuery.sizeOf(context);
+    final Size size = MediaQuery.sizeOf(context);
     return Container(
       width: size.width * 0.6,
       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
@@ -43,7 +44,6 @@ class _GameDrawerState extends State<GameDrawer> {
               title: 'level ${controller.level}',
               onTap: () {
                 _openLevels = !_openLevels;
-
                 setState(() {});
               },
               isOpen: _openLevels,
@@ -69,7 +69,27 @@ class _GameDrawerState extends State<GameDrawer> {
               titleStyle: TextStyle(fontSize: 15),
               middleTextStyle: TextStyle(fontSize: 30),
             );
-          },size),
+          }, size),
+          Divider(),
+          GameDrawerButton(
+            icon: Icons.volume_up,
+            title: 'sound effect',
+            onTap: () {
+              _openSound = !_openSound;
+              setState(() {});
+            },
+            isOpen: _openSound,
+            onChoice: (auth) {
+              _openSound = false;
+              setState(() {});
+              _gContr.changeSoundePerm(auth);
+            },
+            data: [
+              {'turn on': true},
+              {'turn off': false},
+            ],
+            groupValue: _gContr.allowSounde,
+          ),
           Divider(),
           GameDrawerButton(
             icon: Icons.contrast,
@@ -95,7 +115,12 @@ class _GameDrawerState extends State<GameDrawer> {
     );
   }
 
-  Widget _button(IconData icon, String label, void Function() onTap,Size size) {
+  Widget _button(
+    IconData icon,
+    String label,
+    void Function() onTap,
+    Size size,
+  ) {
     return InkWell(
       onTap: onTap,
       child: Container(

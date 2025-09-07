@@ -116,7 +116,9 @@ class SnakeController extends GetxController {
 
   void _increaseHieght() {
     if (pixels.first == ball) {
-      _audioPlayer.play(AssetSource(snakeSoundePath));
+      if (_gContr.allowSounde) {
+        _audioPlayer.play(AssetSource(snakeSoundePath));
+      }
       _changeBallLocation();
       _gContr.points++;
       _gContr.update(['info']);
@@ -190,7 +192,9 @@ class SnakeController extends GetxController {
         .skipWhile((item) => item == this.pixels[0])
         .toList();
     if (pixels.contains(this.pixels[0])) {
-      _audioPlayer.play(AssetSource(lossSoundePath));
+      if (_gContr.allowSounde) {
+        _audioPlayer.play(AssetSource(lossSoundePath));
+      }
       _gContr.stop();
       _gContr.status = GameStatus.restart;
       if (_gContr.points > _gContr.topScore) {

@@ -16,11 +16,14 @@ class GameController extends GetxController {
 
   late final SnakeController _sContr;
 
+  late bool allowSounde;
+
   @override
   void onInit() async {
     _shP = await SharedPreferences.getInstance();
     level = _shP.getInt('level') ?? 1;
     topScore = _shP.getInt('topScore') ?? 0;
+    allowSounde = _shP.getBool('allowSounde') ?? true;
     super.onInit();
   }
 
@@ -71,5 +74,11 @@ class GameController extends GetxController {
     logger('save top Score : $points');
     topScore = points;
     await _shP.setInt('topScore', points);
+  }
+
+  Future<void> changeSoundePerm(bool auth) async {
+    logger('change sound auth to $auth');
+    await _shP.setBool('allowSounde', auth);
+    allowSounde = auth;
   }
 }
