@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 
 import 'controller/route_controller.dart';
 import 'controller/theme_controller.dart';
@@ -20,6 +20,5 @@ class MyApp extends StatelessWidget {
     theme: ThemeController.theme,
     themeMode: ThemeController.mode,
     initialRoute: RouteController.gamePage.name,
-    getPages: [RouteController.gamePage],
-  );
+getPages: [RouteController.gamePage],  );
 }

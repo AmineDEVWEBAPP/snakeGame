@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import '../../../controller/theme_controller.dart';
 import 'expanded_dialog.dart';
@@ -25,12 +24,13 @@ class GameDrawerButton extends StatelessWidget {
   final ThemeData _theme = ThemeController.theme;
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.sizeOf(context);
     return Column(
       children: [
         InkWell(
           onTap: onTap,
           child: Container(
-            height: Get.height * 0.038,
+            height: size.height * 0.038,
             padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
             decoration: BoxDecoration(
               color: _theme.scaffoldBackgroundColor,
@@ -39,7 +39,7 @@ class GameDrawerButton extends StatelessWidget {
             child: Row(
               children: [
                 Icon(icon),
-                SizedBox(width: Get.width * 0.1),
+                SizedBox(width: size.width * 0.1),
                 Text(title),
               ],
             ),

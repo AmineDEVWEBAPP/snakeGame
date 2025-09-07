@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import '../../../controller/theme_controller.dart';
 
@@ -16,30 +15,38 @@ class ControlleButtons extends StatelessWidget {
   final void Function() top;
   final void Function() bottom;
   final void Function() right;
-  final double _cardSize = Get.width * 0.55;
+  
   @override
   Widget build(BuildContext context) {
+    final double cardSize = MediaQuery.sizeOf(context).width * 0.55;
     return SizedBox(
-      width: _cardSize,
-      height: _cardSize,
+      width: cardSize,
+      height: cardSize,
       child: Row(
         children: [
-          _button(left),
+          _button(left, cardSize: cardSize),
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [_button(top, turns: 1), _button(bottom, turns: -1)],
+            children: [
+              _button(top, turns: 1, cardSize: cardSize),
+              _button(bottom, turns: -1, cardSize: cardSize),
+            ],
           ),
-          _button(right, turns: 2),
+          _button(right, turns: 2, cardSize: cardSize),
         ],
       ),
     );
   }
 
-  Widget _button(void Function() onTap, {int? turns}) => GestureDetector(
+  Widget _button(
+    void Function() onTap, {
+    int? turns,
+    required double cardSize,
+  }) => GestureDetector(
     onTap: onTap,
     child: Container(
-      width: _cardSize / 3,
-      height: _cardSize / 3,
+      width: cardSize / 3,
+      height: cardSize / 3,
       decoration: BoxDecoration(
         color: _appTheme.cardColor,
         borderRadius: BorderRadius.circular(10),

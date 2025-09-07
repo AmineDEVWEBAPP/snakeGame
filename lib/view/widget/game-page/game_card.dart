@@ -8,9 +8,9 @@ import '../../../controller/theme_controller.dart';
 class GameCard extends StatelessWidget {
   GameCard({super.key});
   final ThemeData _theme = ThemeController.theme;
-  final double cardSize = Get.width * 0.9;
   @override
   Widget build(BuildContext context) {
+    final double cardSize = MediaQuery.sizeOf(context).width * 0.9;
     return Container(
       height: cardSize,
       width: cardSize,

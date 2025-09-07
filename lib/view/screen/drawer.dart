@@ -22,8 +22,9 @@ class _GameDrawerState extends State<GameDrawer> {
 
   @override
   Widget build(BuildContext context) {
+    final Size size=MediaQuery.sizeOf(context);
     return Container(
-      width: Get.width * 0.6,
+      width: size.width * 0.6,
       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       decoration: BoxDecoration(
         color: _theme.hintColor,
@@ -68,7 +69,7 @@ class _GameDrawerState extends State<GameDrawer> {
               titleStyle: TextStyle(fontSize: 15),
               middleTextStyle: TextStyle(fontSize: 30),
             );
-          }),
+          },size),
           Divider(),
           GameDrawerButton(
             icon: Icons.contrast,
@@ -94,11 +95,11 @@ class _GameDrawerState extends State<GameDrawer> {
     );
   }
 
-  Widget _button(IconData icon, String label, void Function() onTap) {
+  Widget _button(IconData icon, String label, void Function() onTap,Size size) {
     return InkWell(
       onTap: onTap,
       child: Container(
-        height: Get.height * 0.038,
+        height: size.height * 0.038,
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         decoration: BoxDecoration(
           color: _theme.scaffoldBackgroundColor,
@@ -107,7 +108,7 @@ class _GameDrawerState extends State<GameDrawer> {
         child: Row(
           children: [
             Icon(icon),
-            SizedBox(width: Get.width * 0.1),
+            SizedBox(width: size.width * 0.1),
             Text(label),
           ],
         ),

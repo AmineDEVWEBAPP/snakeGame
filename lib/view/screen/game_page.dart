@@ -21,6 +21,8 @@ class GamePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.sizeOf(context);
+
     return Scaffold(
       key: _scaffoldState,
       drawer: GameDrawer(),
@@ -28,17 +30,17 @@ class GamePage extends StatelessWidget {
         _gdContr.drawerAnimation();
       },
       body: Container(
-        width: Get.width,
-        padding: EdgeInsets.symmetric(horizontal: Get.width * 0.05),
+        width: size.width,
+        padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
         child: Column(
           children: [
-            SizedBox(height: Get.height * 0.05),
+            SizedBox(height: size.height * 0.05),
             DrawerIcon(
               onTap: () {
                 _scaffoldState.currentState?.openDrawer();
               },
             ),
-            SizedBox(height: Get.height * 0.02),
+            SizedBox(height: size.height * 0.02),
             GetBuilder<GameController>(
               id: 'info',
               builder: (controller) => Row(
@@ -50,14 +52,14 @@ class GamePage extends StatelessWidget {
               ),
             ),
             GameCard(),
-            SizedBox(height: 40),
+            SizedBox(height: size.height * 0.04),
             ControlleButtons(
               left: _sContr.toLeft,
               right: _sContr.toRight,
               top: _sContr.toTop,
               bottom: _sContr.toBottom,
             ),
-            SizedBox(height: 50),
+            SizedBox(height: size.height * 0.04),
             GetBuilder<GameController>(
               id: 'statusButton',
               builder: (controller) => ElevatedButton(
