@@ -8,7 +8,7 @@ import 'game_controller.dart';
 
 class SnakeController extends GetxController {
   final GameController _gContr = Get.find<GameController>();
-  final List<int> _allPixels = List.generate(224, (i) => i);
+  List<int> _allPixels = List.generate(224, (i) => i);
   // verticalPixel and horizontalPixel is the next pixel dependant
   // about if is it horizontal or vertical
   final int _verticalPixel = 15;
@@ -205,5 +205,6 @@ class SnakeController extends GetxController {
     }
     _allPixels.shuffle();
     ball = _allPixels[0];
+    _allPixels = List.generate(224, (i) => i);
   }
 }
