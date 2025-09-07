@@ -16,11 +16,12 @@ class ControlleButtons extends StatelessWidget {
   final void Function() top;
   final void Function() bottom;
   final void Function() right;
+  final double _cardSize = Get.width * 0.55;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: Get.width * 0.45,
-      height: Get.width * 0.45,
+      width: _cardSize,
+      height: _cardSize,
       child: Row(
         children: [
           _button(left),
@@ -37,8 +38,8 @@ class ControlleButtons extends StatelessWidget {
   Widget _button(void Function() onTap, {int? turns}) => InkWell(
     onTap: onTap,
     child: Container(
-      width: (Get.width * 0.45) / 3,
-      height: (Get.width * 0.45) / 3,
+      width: _cardSize / 3,
+      height: _cardSize / 3,
       decoration: BoxDecoration(
         color: _appTheme.cardColor,
         borderRadius: BorderRadius.circular(10),
