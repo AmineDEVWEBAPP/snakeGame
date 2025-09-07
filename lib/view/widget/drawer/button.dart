@@ -25,38 +25,35 @@ class GameDrawerButton extends StatelessWidget {
   final ThemeData _theme = ThemeController.theme;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(bottom: Get.height * 0.025),
-      child: Column(
-        children: [
-          InkWell(
-            onTap: onTap,
-            child: Container(
-              height: Get.height * 0.038,
-              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-              decoration: BoxDecoration(
-                color: _theme.scaffoldBackgroundColor,
-                borderRadius: BorderRadius.circular(5),
-              ),
-              child: Row(
-                children: [
-                  Icon(icon),
-                  SizedBox(width: Get.width * 0.1),
-                  Text(title),
-                ],
-              ),
+    return Column(
+      children: [
+        InkWell(
+          onTap: onTap,
+          child: Container(
+            height: Get.height * 0.038,
+            padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+            decoration: BoxDecoration(
+              color: _theme.scaffoldBackgroundColor,
+              borderRadius: BorderRadius.circular(5),
+            ),
+            child: Row(
+              children: [
+                Icon(icon),
+                SizedBox(width: Get.width * 0.1),
+                Text(title),
+              ],
             ),
           ),
-          ExpandedDialog(
-            isOpen: isOpen,
-            groupValue: groupValue,
-            data: data,
-            onTap: (value) async {
-              onChoice(value);
-            },
-          ),
-        ],
-      ),
+        ),
+        ExpandedDialog(
+          isOpen: isOpen,
+          groupValue: groupValue,
+          data: data,
+          onTap: (value) async {
+            onChoice(value);
+          },
+        ),
+      ],
     );
   }
 }

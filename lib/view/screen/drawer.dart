@@ -19,15 +19,11 @@ class _GameDrawerState extends State<GameDrawer> {
   final GameController _gContr = Get.find<GameController>();
   bool _openLevels = false;
   bool _openModes = false;
-  double _dialogHeight = Get.height * 0.185;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: _dialogHeight,
       width: Get.width * 0.6,
-      alignment: Alignment.center,
-
       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       decoration: BoxDecoration(
         color: _theme.hintColor,
@@ -36,72 +32,64 @@ class _GameDrawerState extends State<GameDrawer> {
           bottomRight: Radius.circular(5),
         ),
       ),
-      child: SingleChildScrollView(
-        physics: const NeverScrollableScrollPhysics(),
-        child: Column(
-          children: [
-            GetBuilder<GameController>(
-              id: 'info',
-              builder: (controller) => GameDrawerButton(
-                icon: Icons.leaderboard,
-                title: 'level ${controller.level}',
-                onTap: () {
-                  _openLevels = !_openLevels;
-                  _openLevels
-                      ? _dialogHeight = Get.height * 0.25
-                      : _dialogHeight = Get.height * 0.185;
-                  setState(() {});
-                },
-                isOpen: _openLevels,
-                onChoice: (level) async {
-                  _openLevels = false;
-                  _dialogHeight = Get.height * 0.185;
-                  setState(() {});
-                  await _gContr.changeLevel(level);
-                },
-                data: [
-                  {'Level 1': 1},
-                  {'Level 2': 2},
-                  {'Level 3': 3},
-                ],
-                groupValue: controller.level,
-              ),
-            ),
-
-            _button(Icons.score, 'top score', () {
-              Get.defaultDialog(
-                title: 'Top score',
-                middleText: _gContr.topScore.toString(),
-                backgroundColor: _theme.hintColor,
-                titleStyle: TextStyle(fontSize: 15),
-                middleTextStyle: TextStyle(fontSize: 30),
-              );
-            }),
-            GameDrawerButton(
-              icon: Icons.contrast,
-              title: 'theme mode',
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          GetBuilder<GameController>(
+            id: 'info',
+            builder: (controller) => GameDrawerButton(
+              icon: Icons.leaderboard,
+              title: 'level ${controller.level}',
               onTap: () {
-                _openModes = !_openModes;
-                _openModes
-                    ? _dialogHeight = Get.height * 0.31
-                    : _dialogHeight = Get.height * 0.185;
+                _openLevels = !_openLevels;
+
                 setState(() {});
               },
-              isOpen: _openModes,
-              onChoice: (mode) {
-                _openModes = false;
-                _dialogHeight = Get.height * 0.185;
+              isOpen: _openLevels,
+              onChoice: (level) async {
+                _openLevels = false;
                 setState(() {});
-                _showModeDialog(mode);
+                await _gContr.changeLevel(level);
               },
               data: [
-                {'dark': ThemeMode.dark},
-                {'light': ThemeMode.light},
+                {'Level 1': 1},
+                {'Level 2': 2},
+                {'Level 3': 3},
               ],
-              groupValue: ThemeController.mode,
+              groupValue: controller.level,
             ),
-          ],
-        ),
+          ),
+          Divider(),
+          _button(Icons.score, 'top score', () {
+            Get.defaultDialog(
+              title: 'Top score',
+              middleText: _gContr.topScore.toString(),
+              backgroundColor: _theme.hintColor,
+              titleStyle: TextStyle(fontSize: 15),
+              middleTextStyle: TextStyle(fontSize: 30),
+            );
+          }),
+          Divider(),
+          GameDrawerButton(
+            icon: Icons.contrast,
+            title: 'theme mode',
+            onTap: () {
+              _openModes = !_openModes;
+              setState(() {});
+            },
+            isOpen: _openModes,
+            onChoice: (mode) {
+              _openModes = false;
+              setState(() {});
+              _showModeDialog(mode);
+            },
+            data: [
+              {'dark': ThemeMode.dark},
+              {'light': ThemeMode.light},
+            ],
+            groupValue: ThemeController.mode,
+          ),
+        ],
       ),
     );
   }
@@ -112,7 +100,6 @@ class _GameDrawerState extends State<GameDrawer> {
       child: Container(
         height: Get.height * 0.038,
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-        margin: EdgeInsets.only(bottom: Get.height * 0.025),
         decoration: BoxDecoration(
           color: _theme.scaffoldBackgroundColor,
           borderRadius: BorderRadius.circular(5),

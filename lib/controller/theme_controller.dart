@@ -50,6 +50,7 @@ class ThemeController {
     hintColor: Colors.grey[400],
     textTheme: TextTheme(bodyMedium: TextStyle(color: Colors.blue)),
     iconTheme: IconThemeData(color: Colors.blue),
+    dividerColor: Colors.yellow[100],
   );
   final ThemeData _darkTheme = ThemeData(
     scaffoldBackgroundColor: const Color.fromARGB(255, 22, 22, 22),
@@ -59,5 +60,6 @@ class ThemeController {
     hintColor: const Color.fromARGB(255, 97, 97, 97),
     textTheme: TextTheme(bodyMedium: TextStyle(color: Colors.yellow)),
     iconTheme: IconThemeData(color: Colors.yellow),
+    dividerColor: Colors.white38,
   );
 }
