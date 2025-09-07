@@ -12,10 +12,10 @@ Future<void> initServices() async {
 int getSpeed(int level) {
   switch (level) {
     case 1:
-      return 350;
+      return 330;
     case 2:
-      return 250;
+      return 230;
     default:
-      return 150;
+      return 130;
   }
 }
