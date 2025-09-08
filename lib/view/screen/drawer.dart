@@ -124,7 +124,7 @@ class _GameDrawerState extends State<GameDrawer> {
     return InkWell(
       onTap: onTap,
       child: Container(
-        height: size.height * 0.038,
+        height: size.height * 0.050,
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         decoration: BoxDecoration(
           color: _theme.scaffoldBackgroundColor,

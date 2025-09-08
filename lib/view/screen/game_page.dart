@@ -29,62 +29,68 @@ class GamePage extends StatelessWidget {
       onDrawerChanged: (isOpened) {
         _gdContr.drawerAnimation();
       },
-      body: Container(
-        width: size.width,
-        padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
-        child: Column(
-          children: [
-            SizedBox(height: size.height * 0.05),
-            DrawerIcon(
-              onTap: () {
-                _scaffoldState.currentState?.openDrawer();
-              },
-            ),
-            SizedBox(height: size.height * 0.02),
-            GetBuilder<GameController>(
-              id: 'info',
-              builder: (controller) => Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Info(keyw: 'SCORE', value: controller.points.toString()),
-                  Info(keyw: 'LEVEL', value: controller.level.toString()),
-                ],
-              ),
-            ),
-            GameCard(),
-            SizedBox(height: size.height * 0.04),
-            ControlleButtons(
-              left: _sContr.toLeft,
-              right: _sContr.toRight,
-              top: _sContr.toTop,
-              bottom: _sContr.toBottom,
-            ),
-            SizedBox(height: size.height * 0.04),
-            GetBuilder<GameController>(
-              id: 'statusButton',
-              builder: (controller) => ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: WidgetStatePropertyAll(_appTheme.cardColor),
-                ),
-                onPressed: () {
-                  switch (controller.status) {
-                    case GameStatus.start || GameStatus.resume:
-                      controller.start();
-                      break;
-                    case GameStatus.pause:
-                      controller.stop();
-                      break;
-                    case GameStatus.restart:
-                      controller.restart();
-                  }
+      body: SafeArea(
+        child: Container(
+          width: size.width,
+          padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
+          child: Column(
+            children: [
+              SizedBox(height: size.height * 0.02),
+              DrawerIcon(
+                onTap: () {
+                  _scaffoldState.currentState?.openDrawer();
                 },
-                child: Text(
-                  controller.status.name,
-                  style: _appTheme.textTheme.bodyMedium,
+              ),
+              SizedBox(height: size.height * 0.02),
+              GetBuilder<GameController>(
+                id: 'info',
+                builder: (controller) => Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Info(keyw: 'SCORE', value: controller.points.toString()),
+                    Info(keyw: 'LEVEL', value: controller.level.toString()),
+                  ],
                 ),
               ),
-            ),
-          ],
+              SizedBox(height: size.height * 0.01),
+              Expanded(child: Center(child: GameCard())),
+              SizedBox(height: size.height * 0.02),
+              ControlleButtons(
+                left: _sContr.toLeft,
+                right: _sContr.toRight,
+                top: _sContr.toTop,
+                bottom: _sContr.toBottom,
+              ),
+              SizedBox(height: size.height * 0.02),
+              GetBuilder<GameController>(
+                id: 'statusButton',
+                builder: (controller) => ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: WidgetStatePropertyAll(
+                      _appTheme.cardColor,
+                    ),
+                  ),
+                  onPressed: () {
+                    switch (controller.status) {
+                      case GameStatus.start || GameStatus.resume:
+                        controller.start();
+                        break;
+                      case GameStatus.pause:
+                        controller.stop();
+                        break;
+                      case GameStatus.restart:
+                        controller.restart();
+                    }
+                  },
+                  child: Text(
+                    controller.status.name,
+                    style: _appTheme.textTheme.bodyMedium,
+                  ),
+                ),
+              ),
+              SizedBox(height: size.height * 0.02),
+            ],
+          ),
         ),
       ),
     );

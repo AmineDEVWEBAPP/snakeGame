@@ -15,10 +15,11 @@ class ControlleButtons extends StatelessWidget {
   final void Function() top;
   final void Function() bottom;
   final void Function() right;
-  
+
   @override
   Widget build(BuildContext context) {
-    final double cardSize = MediaQuery.sizeOf(context).width * 0.55;
+    final Size size = MediaQuery.sizeOf(context);
+    final double cardSize = ((size.width + size.height) / 2) * 0.35;
     return SizedBox(
       width: cardSize,
       height: cardSize,
