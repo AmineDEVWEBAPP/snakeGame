@@ -84,12 +84,12 @@ class SnakeController extends GetxController {
   void toRight() {
     if (_deriction != Direction.left && _allowRedirection) {
       _deriction = Direction.right;
+      _allowRedirection = false;
     }
   }
 
   Future<void> updateLocation() async {
     while (_gContr.isStarting) {
-      _allowRedirection = true;
       // logger head Pixel for body pixel following the prints
       _loggerPrints();
       // check if the pixel is in outSide appears in opposide side
@@ -99,6 +99,7 @@ class SnakeController extends GetxController {
       // when the headPixel == ballPixel add a pixel to snakePixels
       _increaseHieght();
       update(['pixel']);
+      _allowRedirection = true;
       // value head and tail pixels
       head = pixels.first;
       tail = pixels.last;
