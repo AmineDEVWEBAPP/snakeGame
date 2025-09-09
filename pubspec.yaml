@@ -37,6 +37,7 @@ dependencies:
   get: ^4.7.2
   shared_preferences: ^2.5.3
   audioplayers: ^6.5.1
+  icons_launcher: ^3.0.2
 
 dev_dependencies:
   flutter_test:
