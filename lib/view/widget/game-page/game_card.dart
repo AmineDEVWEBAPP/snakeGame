@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 import '../../../controller/game_controller.dart';
 import '../../../controller/snake_controller.dart';
 import '../../../controller/theme_controller.dart';
-import '../../../core/const/consts.dart';
 
 class GameCard extends StatelessWidget {
   GameCard({super.key});
@@ -43,16 +41,9 @@ class GameCard extends StatelessWidget {
       decoration: BoxDecoration(
         // border: Border.all(color: Colors.white),
         borderRadius: BorderRadius.circular(controller.ball == index ? 200 : 0),
-        color: controller.pixels.contains(index)
-            ? controller.head == index
-                  ? Colors.transparent
-                  : Colors.orange
-            : controller.ball == index
-            ? Colors.blue
-            : null,
+        color: controller.pixelColor(index),
       ),
       // child: Text('$index', style: TextStyle(fontSize: 10)),
-      child: controller.head == index ? SvgPicture.asset(headPath) : null,
     ),
   );
 }

@@ -1,4 +1,5 @@
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../core/const/consts.dart';
@@ -234,5 +235,19 @@ class SnakeController extends GetxController {
     _allPixels.shuffle();
     ball = _allPixels[0];
     _allPixels = List.generate(224, (i) => i);
+  }
+
+  Color? pixelColor(int index) {
+    Color? color;
+    if (ball == index) {
+      color = Colors.blue;
+    }
+    if (pixels.contains(index)) {
+      color = Colors.orange;
+    }
+    if (head == index) {
+      color = Colors.pink;
+    }
+    return color;
   }
 }
