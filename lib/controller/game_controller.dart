@@ -21,15 +21,15 @@ class GameController extends GetxController {
   @override
   void onInit() async {
     _shP = await SharedPreferences.getInstance();
-    level = _shP.getInt('level') ?? 1;
     topScore = _shP.getInt('topScore') ?? 0;
     allowSounde = _shP.getBool('allowSounde') ?? true;
+    _sContr = Get.find<SnakeController>();
     super.onInit();
   }
 
   @override
   void onReady() {
-    _sContr = Get.find<SnakeController>();
+    level = _shP.getInt('level') ?? 1;
     update(['info']);
     super.onReady();
   }

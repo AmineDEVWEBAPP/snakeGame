@@ -32,7 +32,6 @@ class SnakeController extends GetxController {
   @override
   void onInit() {
     _getRandomVars();
-    speed = getSpeed(_gContr.level);
     super.onInit();
   }
 
@@ -91,6 +90,7 @@ class SnakeController extends GetxController {
 
   Future<void> updateLocation() async {
     while (_gContr.isStarting) {
+      speed = getSpeed(_gContr.level);
       // logger head Pixel for body pixel following the prints
       _loggerPrints();
       // check if the pixel is in outSide appears in opposide side
